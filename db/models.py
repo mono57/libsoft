@@ -19,7 +19,6 @@ class Article(Base):
     # selling_entry = relationship(
     #     'SellingEntry', uselist=False, back_populates='parent')
 
-
 class Provider(Base):
     __tablename__ = 'provider'
     id = Column(Integer, primary_key=True)
