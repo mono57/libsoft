@@ -1,5 +1,5 @@
 
-from setup import Base
+from db.setup import Base
 from sqlalchemy import Column, String, Integer, Date, ForeignKey
 from sqlalchemy.orm import relationship, backref
 
@@ -11,6 +11,7 @@ class Article(Base):
     designation = Column('designation', String(100))
     family = Column('family', String(50))
     author = Column('author', String(50))
+    editor = Column('editor', String(50))
     buying_price = Column('buying_price', String(20))
     selling_price = Column('selling_price', String(20))
     quantity = Column('quantity', Integer)

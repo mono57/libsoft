@@ -10,7 +10,11 @@ Base = declarative_base()
 
 Session = sessionmaker(bind=engine)
 
+session = None
 
+def initDB():
+    Base.metadata.create_all(engine)
+    
 def save(instance):
     session = Session()
     session.add(instance)
