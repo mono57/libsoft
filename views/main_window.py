@@ -4,6 +4,10 @@ from PyQt5.QtGui import QStandardItemModel
 from views.layout.MainWindow import Ui_MainWindow
 from views.add_article_view import ArticleFormWindow
 from views.selling_form_view import SellingFormView
+from views.article_search_view import ArticleSearchView
+from views.article_command_list_view import ArticleCommandListView
+from views.command_form_view import CommandFormView
+from views.command_list_view import CommandListView
 from db.setup import initDB, Session
 from db.models import Article
 
@@ -70,3 +74,19 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
     def on_add_selling_clicked(self):
         selling_form_win = SellingFormView()
         selling_form_win.exec_()
+
+    @pyqtSlot()
+    def on_add_command_clicked(self):
+        add_command = CommandFormView()
+        add_command.exec_()
+
+    @pyqtSlot()
+    def on_show_command_clicked(self):
+        show_command = CommandListView()
+        show_command.exec_()
+
+    @pyqtSlot()
+    def on_show_command_article_clicked(self):
+        show_command_article = ArticleCommandListView()
+        show_command_article.exec_()
+        

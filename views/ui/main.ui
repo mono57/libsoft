@@ -100,14 +100,14 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="show_command">
              <property name="text">
               <string>Afficher les commandes</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="show_command_article">
              <property name="text">
               <string>Afficher les articles commandé</string>
              </property>
