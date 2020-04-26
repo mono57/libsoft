@@ -18,5 +18,5 @@ setup(
     description = "Programme de gestion de la librairie",
     executables = executables,
 )
-#C:\python34\python.exe setup.py build  // commande pour executer le script
-#python setup.py build
+
+#python setup.py build  // commande pour executer le script
