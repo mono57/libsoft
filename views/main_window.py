@@ -34,11 +34,16 @@ class ArticleTableModel(QAbstractTableModel):
             return self.articles[index.row()][index.column()]
         return QVariant()
 
+    def add_articles(self, article_list_obj):
+        article_list = [ list(obj.values()) for obj in article_list_obj ]
+        self.articles += article_list
+        
+
     def get_articles(self):
         session = Session()
         articles = session.query(Article).all()
         article_list = []
-        for index, article_obj in enumerate(articles):
+        for article_obj in articles:
             _article = [
                 article_obj.code,
                 article_obj.designation,
@@ -62,6 +67,7 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
         # self.model = QStandardItemModel()
         # self.model.setHorizontalHeaderLabels(['Name', 'Age', 'Sex', 'Add'])
         # self.article_table_model.setHorizontalHeaderLabels(self.header)
+        
         self.tableView.setModel(self.article_table_model)
         # self.tableView.setHorizontalHeader()
 
@@ -69,6 +75,9 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
     def on_add_article_clicked(self):
         article_form_win = ArticleFormWindow()
         article_form_win.exec_()
+        form_data_obj = article_form_win.get_form_data()
+        self.article_table_model.add_articles(form_data_obj)
+        self.tableView.model().layoutChanged.emit()
 
     @pyqtSlot()
     def on_add_selling_clicked(self):
