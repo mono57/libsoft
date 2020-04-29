@@ -31,8 +31,8 @@ class Provider(Base):
 class Command(Base):
     __tablename__ = 'command'
     id = Column(Integer, primary_key=True)
-    emisson_date = Column('cmd_date', Date)
-    reception_date = Column('cmd_date', Date)
+    emission_date = Column('emission_date', Date)
+    reception_date = Column('reception_date', Date)
     object_ = Column('object', String(50))
     # receptionner = Column('receptionner', String(30))
     command_entry = relationship('CommandEntry')

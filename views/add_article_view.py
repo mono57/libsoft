@@ -38,7 +38,8 @@ class ArticleFormWindow(QDialog, Ui_ArticleForm):
         self.lineEditSellingPrice.textChanged.connect(
             lambda: self.textChanged('lineEditSellingPrice'))
 
-    # def textChanged(self, field):
+    def textChanged(self, field):
+        pass
     #     if field == 'lineEditCode':
     #         if len(self.lineEditCode.text()) == 0:
     #             self.error_fields[field].setText('Champ requis !')
