@@ -1,8 +1,10 @@
 from PyQt5.QtWidgets import QMainWindow, QWidget, QDialog
 from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtGui import QIntValidator
 from views.layout.ArticleFormWindow import Ui_ArticleForm
 from db.models import Article
 from db.setup import save
+
 
 class ArticleFormWindow(QDialog, Ui_ArticleForm):
     def __init__(self, parent=None):
@@ -10,7 +12,37 @@ class ArticleFormWindow(QDialog, Ui_ArticleForm):
 
         self.setupUi(self)
         self.inputs_data_list = []
-    
+        self.form = {
+            'isValid': False,
+
+        }
+
+        self.error_fields = {
+            'lineEditCode': self.labelErrorCode,
+            'lineEditDesignation': self.labelErrorDesignation,
+            'lineEditBuyPrice': self.labelErrorBuyingPrice,
+            'lineEditSellingPrice': self.labelErrorSellingPrice
+        }
+        
+        self.lineEditBuyPrice.setValidator(QIntValidator())
+        self.lineEditSellingPrice.setValidator(QIntValidator())
+        # self.lineEditCode.text()
+        
+
+        self.lineEditCode.textChanged.connect(
+            lambda: self.textChanged('lineEditCode'))
+        self.lineEditDesignation.textChanged.connect(
+            lambda: self.textChanged('lineEditDesignation'))
+        self.lineEditBuyPrice.textChanged.connect(
+            lambda: self.textChanged('lineEditBuyPrice'))
+        self.lineEditSellingPrice.textChanged.connect(
+            lambda: self.textChanged('lineEditSellingPrice'))
+
+    # def textChanged(self, field):
+    #     if field == 'lineEditCode':
+    #         if len(self.lineEditCode.text()) == 0:
+    #             self.error_fields[field].setText('Champ requis !')
+
     def get_inputs_values(self):
         values = {}
         values['code'] = self.lineEditCode.text()
@@ -32,7 +64,6 @@ class ArticleFormWindow(QDialog, Ui_ArticleForm):
         # self.comboBoxAuthor.clear()
         # self.comboBoxEditor.clear()
         self.spinBoxQteStock.clear()
-        
 
     def save(self):
         inputs_values = self.get_inputs_values()
@@ -51,7 +82,11 @@ class ArticleFormWindow(QDialog, Ui_ArticleForm):
         if instance:
             return inputs_values
         return None
-            
+
+    @pyqtSlot()
+    def on_lineEditCode_textChanged(self, *args):
+        print(args)
+        print("Somthing wrong")
 
     @pyqtSlot()
     def on_pushButtonSaveAndQuit_clicked(self):
@@ -69,7 +104,6 @@ class ArticleFormWindow(QDialog, Ui_ArticleForm):
         if values is not None:
             self.clear_inputs()
             self.inputs_data_list.append(values)
-
 
     @pyqtSlot()
     def on_pushButtonQuit_clicked(self):
