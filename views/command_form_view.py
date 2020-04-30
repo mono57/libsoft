@@ -15,6 +15,11 @@ class CommandFormView(QDialog, Ui_CommandFormWidget):
         self.model.setHorizontalHeaderLabels(['Article', 'Quantité'])
         self.tableView.setModel(self.model)
         self.session = Session()
+
+        self.providers = self.session.query(Provider).all()
+        for provider in self.providers:
+            self.comboBoxProvider.addItem(provider.full_name)
+
         self.cmd_articles = []
         self.command_entries = []
 
@@ -76,9 +81,15 @@ class CommandFormView(QDialog, Ui_CommandFormWidget):
     @pyqtSlot()
     def on_pushButtonAddCommand_clicked(self):
         provider_full_name = self.comboBoxProvider.currentText()
+
+        if not provider_full_name:
+            mBox = QMessageBox.critical(self, 'Attention !', 'Veuillez reseigner le champ fournisseur !', QMessageBox.Ok)
+            if mBox == QMessageBox.Ok:
+                return
+
         _provider_instance = self.session.query(Provider).filter(
             Provider.full_name == provider_full_name).first()
-        print(_provider_instance)
+        
         if not _provider_instance:
             mBox = QMessageBox.information(
                 self, 'Info', 'Le fournisseur que vous avez renseigné n\'existe pas dans la base de données. Voulez vous l\'enregistrer ?',
@@ -102,8 +113,8 @@ class CommandFormView(QDialog, Ui_CommandFormWidget):
         self.session.add(_provider_instance)
 
         self.session.commit()
-        
-        # self.close()
+        self.cmd_articles = []
+        self.close()
     
 
     def close(self):
