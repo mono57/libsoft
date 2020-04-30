@@ -16,7 +16,8 @@ class AddCommandArticleView(QDialog, Ui_AddCommandArticleWidget):
         self.session.close()
         for index, _article in enumerate(self.articles):
             self.comboBoxArticle.addItem(_article.designation)
-
+        
+        self.session.expunge_all()
         self.session.close()
 
     def get_form_data(self):
@@ -24,8 +25,9 @@ class AddCommandArticleView(QDialog, Ui_AddCommandArticleWidget):
 
     @pyqtSlot()
     def on_pushButtonAddArticle_clicked(self):
-        self.article['article'] = [
-            article for article in self.articles if article.designation == self.comboBoxArticle.currentText()][0]
+        self.article['article'] = self.comboBoxArticle.currentText()
+        # self.article['article'] = [
+        #     article for article in self.articles if article.designation == self.comboBoxArticle.currentText()][0]
         self.article['qte'] = self.spinBoxQteCommand.value()
 
         self.close()
