@@ -67,6 +67,16 @@ class Ui_CommandFormWidget(object):
         self.horizontalLayout_2.addWidget(self.labelTotalCost)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.verticalLayout_2.addLayout(self.verticalLayout)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem1)
+        self.pushButtonAddCommand = QtWidgets.QPushButton(CommandFormWidget)
+        self.pushButtonAddCommand.setStyleSheet("background-color: rgb(52, 101, 164);\n"
+"color: rgb(238, 238, 236)")
+        self.pushButtonAddCommand.setObjectName("pushButtonAddCommand")
+        self.horizontalLayout_3.addWidget(self.pushButtonAddCommand)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_3)
 
         self.retranslateUi(CommandFormWidget)
         QtCore.QMetaObject.connectSlotsByName(CommandFormWidget)
@@ -81,4 +91,5 @@ class Ui_CommandFormWidget(object):
         self.pushButtonDeleteArticle.setText(_translate("CommandFormWidget", "Supprimer"))
         self.label_4.setText(_translate("CommandFormWidget", "Total :"))
         self.labelTotalCost.setText(_translate("CommandFormWidget", "0,0 F CFA"))
+        self.pushButtonAddCommand.setText(_translate("CommandFormWidget", "Enregistrer la commande"))
 
