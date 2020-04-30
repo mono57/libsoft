@@ -29,7 +29,7 @@
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>Fournisseur de la commande :</string>
+            <string>Fournisseur de la commande</string>
            </property>
           </widget>
          </item>
@@ -65,6 +65,20 @@
           <widget class="QDateEdit" name="dateEditReception"/>
          </item>
         </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Motif de la commande (optionel)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEditMotif"/>
        </item>
       </layout>
      </item>
