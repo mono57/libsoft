@@ -15,8 +15,8 @@ class Article(Base):
     buying_price = Column('buying_price', String(20))
     selling_price = Column('selling_price', String(20))
     quantity = Column('quantity', Integer)
-    # command_entry = relationship(
-    #     'CommandEntry', uselist=False, back_populates='parent')
+    command_entry = relationship(
+        'CommandEntry', uselist=False, back_populates='article', lazy='noload')
     # selling_entry = relationship(
     #     'SellingEntry', uselist=False, back_populates='parent')
 
@@ -24,8 +24,7 @@ class Provider(Base):
     __tablename__ = 'provider'
     id = Column(Integer, primary_key=True)
     full_name = Column('full_name', String(50))
-    phone_number = Column('phone_number', String(20))
-    # command = relationship('Command')
+    commands = relationship('Command')
 
 
 class Command(Base):
@@ -33,10 +32,10 @@ class Command(Base):
     id = Column(Integer, primary_key=True)
     emission_date = Column('emission_date', Date)
     reception_date = Column('reception_date', Date)
-    object_ = Column('object', String(50))
+    # object_ = Column('object', String(50))
     # receptionner = Column('receptionner', String(30))
-    command_entry = relationship('CommandEntry')
-    provider = Column(Integer, ForeignKey('provider.id'))
+    command_entries = relationship('CommandEntry')
+    provider_id = Column(Integer, ForeignKey('provider.id'))
 
 
 class CommandEntry(Base):
@@ -44,7 +43,7 @@ class CommandEntry(Base):
     id = Column(Integer, primary_key=True)
     cmd_qte = Column('commanded_qte', Integer)
     article_id = Column(Integer, ForeignKey('articles.id'))
-    article = relationship('Article', uselist=False)
+    article = relationship('Article', back_populates='command_entry', lazy='noload')
     command_id = Column(Integer, ForeignKey('command.id'))
 
 

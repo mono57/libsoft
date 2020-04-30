@@ -19,5 +19,6 @@ def save(instance):
     session = Session()
     session.add(instance)
     session.commit()
+    # session.expunge_all()
     session.close()
     return instance
