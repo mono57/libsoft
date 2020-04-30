@@ -95,13 +95,13 @@ class CommandFormView(QDialog, Ui_CommandFormWidget):
                 self, 'Info', 'Le fournisseur que vous avez renseigné n\'existe pas dans la base de données. Voulez vous l\'enregistrer ?',
                 QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes
             )
-            if mBox == QMessageBox.Yes:
-                _provider_instance = Provider(full_name=provider_full_name)
-                # self.session.add(_provider_instance)
-            else:
+            if mBox == QMessageBox.No:
                 return
+            
+            _provider_instance = Provider(full_name=provider_full_name)
         
         command_instance = Command(
+            motif = self.lineEditMotif.text(),
             emission_date = self.dateEditEmission.date().currentDate().toPyDate(),    
             reception_date = self.dateEditReception.date().currentDate().toPyDate(),
             command_entries = self.command_entries
