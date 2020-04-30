@@ -16,12 +16,12 @@ class Ui_ArticleSearchForm(object):
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.lineEdit = QtWidgets.QLineEdit(ArticleSearchForm)
-        self.lineEdit.setObjectName("lineEdit")
-        self.horizontalLayout.addWidget(self.lineEdit)
-        self.pushButton = QtWidgets.QPushButton(ArticleSearchForm)
-        self.pushButton.setObjectName("pushButton")
-        self.horizontalLayout.addWidget(self.pushButton)
+        self.lineEditQuery = QtWidgets.QLineEdit(ArticleSearchForm)
+        self.lineEditQuery.setObjectName("lineEditQuery")
+        self.horizontalLayout.addWidget(self.lineEditQuery)
+        self.pushButtonSearch = QtWidgets.QPushButton(ArticleSearchForm)
+        self.pushButtonSearch.setObjectName("pushButtonSearch")
+        self.horizontalLayout.addWidget(self.pushButtonSearch)
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
 
         self.retranslateUi(ArticleSearchForm)
@@ -30,6 +30,6 @@ class Ui_ArticleSearchForm(object):
     def retranslateUi(self, ArticleSearchForm):
         _translate = QtCore.QCoreApplication.translate
         ArticleSearchForm.setWindowTitle(_translate("ArticleSearchForm", "Rechercher"))
-        self.lineEdit.setPlaceholderText(_translate("ArticleSearchForm", "Entrez la recherche"))
-        self.pushButton.setText(_translate("ArticleSearchForm", "Rechercher"))
+        self.lineEditQuery.setPlaceholderText(_translate("ArticleSearchForm", "Entrez la recherche"))
+        self.pushButtonSearch.setText(_translate("ArticleSearchForm", "Rechercher"))
 
