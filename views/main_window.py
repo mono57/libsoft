@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from PyQt5.QtCore import pyqtSlot, QAbstractTableModel, QVariant, Qt
 from PyQt5.QtGui import QStandardItemModel
 from views.layout.MainWindow import Ui_MainWindow
@@ -35,9 +35,12 @@ class ArticleTableModel(QAbstractTableModel):
         return QVariant()
 
     def add_articles(self, article_list_obj):
-        article_list = [ list(obj.values()) for obj in article_list_obj ]
+        article_list = [list(obj.values()) for obj in article_list_obj]
         self.articles += article_list
-        
+
+    def set_articles(self, article_list_obj):
+        self.articles = []
+        self.add_articles(article_list_obj)
 
     def get_articles(self):
         session = Session()
@@ -63,12 +66,13 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
         super(MainWindowLib, self).__init__(parent)
         self.setupUi(self)
         initDB()
-        self.header = ['Code', 'Designation', 'Famille', 'Auteur', 'Prix d\'achat', 'Prix de vente']
+        self.header = ['Code', 'Designation', 'Famille',
+                       'Auteur', 'Prix d\'achat', 'Prix de vente']
         self.article_table_model = ArticleTableModel(header=self.header)
         # self.model = QStandardItemModel()
         # self.model.setHorizontalHeaderLabels(['Name', 'Age', 'Sex', 'Add'])
         # self.article_table_model.setHorizontalHeaderLabels(self.header)
-        
+        self.session = Session()
         self.tableView.setModel(self.article_table_model)
         self.tableView.resizeColumnsToContents()
         # self.tableView.setHorizontalHeader()
@@ -80,12 +84,34 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
         form_data_obj = article_form_win.get_form_data()
         if form_data_obj:
             self.article_table_model.add_articles(form_data_obj)
-            self.tableView.model().layoutChanged.emit()
+            self.emit_tableView_layout_change_event()
+
+    def emit_tableView_layout_change_event(self):
+        self.tableView.model().layoutChanged.emit()
 
     @pyqtSlot()
     def on_add_selling_clicked(self):
         selling_form_win = SellingFormView()
         selling_form_win.exec_()
+
+    @pyqtSlot()
+    def on_search_article_clicked(self):
+        search_art_win = ArticleSearchView()
+        search_art_win.exec_()
+        query = search_art_win.get_query()
+
+        if query:
+            articles = self.session.query(Article).all()
+
+            search_results = [obj.__dict__ for obj in articles if query in (
+                obj.designation or obj.author or obj.code or obj.editor or obj.family)]
+            print(search_results)
+            if not search_results:
+                QMessageBox.information(self, 'Recherche', 'Aucune donnée trouvée pour le mot clef: {}'.format(
+                    query), QMessageBox.Yes)
+                return
+            self.article_table_model.set_articles(search_results)
+            self.emit_tableView_layout_change_event()
 
     @pyqtSlot()
     def on_add_command_clicked(self):
@@ -101,4 +127,7 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
     def on_show_command_article_clicked(self):
         show_command_article = ArticleCommandListView()
         show_command_article.exec_()
-        
+
+    def close(self):
+        self.session.close()
+        super(MainWindowLib, self).close()

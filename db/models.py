@@ -32,7 +32,7 @@ class Command(Base):
     id = Column(Integer, primary_key=True)
     emission_date = Column('emission_date', Date)
     reception_date = Column('reception_date', Date)
-    # object_ = Column('object', String(50))
+    motif = Column('motif', String(250))
     # receptionner = Column('receptionner', String(30))
     command_entries = relationship('CommandEntry')
     provider_id = Column(Integer, ForeignKey('provider.id'))

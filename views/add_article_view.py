@@ -49,7 +49,7 @@ class ArticleFormWindow(QDialog, Ui_ArticleForm):
         values['code'] = self.lineEditCode.text()
         values['designation'] = self.lineEditDesignation.text()
         values['familly'] = self.comboBoxFamilly.currentText()
-        values['author'] = self.comboBoxAuthor.currentText()
+        values['author'] = self.lineEditAuthor.text()
         values['buying_price'] = self.lineEditBuyPrice.text()
         values['selling_price'] = self.lineEditSellingPrice.text()
         values['editor'] = self.comboBoxEditor.currentText()
@@ -62,7 +62,7 @@ class ArticleFormWindow(QDialog, Ui_ArticleForm):
         self.lineEditBuyPrice.clear()
         self.lineEditSellingPrice.clear()
         # self.comboBoxFamilly.clear()
-        # self.comboBoxAuthor.clear()
+        # self.lineEditAuthor.clear()
         # self.comboBoxEditor.clear()
         self.spinBoxQteStock.clear()
 
