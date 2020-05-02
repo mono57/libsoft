@@ -16,7 +16,7 @@ class Article(Base):
     selling_price = Column('selling_price', String(20))
     quantity = Column('quantity', Integer)
     command_entry = relationship(
-        'CommandEntry', uselist=False, back_populates='article', lazy='noload')
+        'CommandEntry', uselist=False, back_populates='article')
     # selling_entry = relationship(
     #     'SellingEntry', uselist=False, back_populates='parent')
 
@@ -43,7 +43,7 @@ class CommandEntry(Base):
     id = Column(Integer, primary_key=True)
     cmd_qte = Column('commanded_qte', Integer)
     article_id = Column(Integer, ForeignKey('articles.id'))
-    article = relationship('Article', back_populates='command_entry', lazy='noload')
+    article = relationship('Article', back_populates='command_entry')
     command_id = Column(Integer, ForeignKey('command.id'))
 
 
@@ -53,7 +53,7 @@ class Selling(Base):
     selling_date = Column('selling_date', Date)
     selling_type = Column('selling_type', String(30))
     total_selling = Column('total_selling', Integer)
-    # selling_entries = relationship('SellingEntry')
+    selling_entries = relationship('SellingEntry')
 
 
 class SellingEntry(Base):
