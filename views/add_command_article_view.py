@@ -6,28 +6,24 @@ from db.models import Article
 
 
 class AddCommandArticleView(QDialog, Ui_AddCommandArticleWidget):
-    def __init__(self, parent=None):
+    def __init__(self,articles, parent=None):
         super(AddCommandArticleView, self).__init__(parent)
         self.setupUi(self)
 
-        self.session = Session()
-        self.articles = self.session.query(Article).all()
+        self.articles = articles
         self.article = {}
-        self.session.close()
-        for index, _article in enumerate(self.articles):
+        for _article in self.articles:
             self.comboBoxArticle.addItem(_article.designation)
-        
-        self.session.expunge_all()
-        self.session.close()
 
     def get_form_data(self):
         return self.article
 
     @pyqtSlot()
     def on_pushButtonAddArticle_clicked(self):
-        self.article['article'] = self.comboBoxArticle.currentText()
-        # self.article['article'] = [
-        #     article for article in self.articles if article.designation == self.comboBoxArticle.currentText()][0]
-        self.article['qte'] = self.spinBoxQteCommand.value()
+
+        qte = self.spinBoxQteCommand.value()            
+
+        self.article['designation'] = self.comboBoxArticle.currentText()
+        self.article['qte'] = qte
 
         self.close()

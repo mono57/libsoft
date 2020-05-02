@@ -14,11 +14,12 @@ from db.models import Article
 
 class ArticleTableModel(QAbstractTableModel):
 
-    def __init__(self, header, *args):
+    def __init__(self, header, articles, *args):
         super(ArticleTableModel, self).__init__(*args)
-        self.articles = self.get_articles()
-        print("Les articles : {}".format(list(self.articles)))
+
         self.header = header
+        self.articles_obj = articles
+        self.articles = self.get_articles()
 
     def rowCount(self, *args):
         return len(self.articles)
@@ -43,11 +44,9 @@ class ArticleTableModel(QAbstractTableModel):
         self.add_articles(article_list_obj)
 
     def get_articles(self):
-        session = Session()
-        articles = session.query(Article).all()
-        session.close()
+        
         article_list = []
-        for article_obj in articles:
+        for article_obj in self.articles_obj:
             _article = [
                 article_obj.code,
                 article_obj.designation,
@@ -65,14 +64,19 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindowLib, self).__init__(parent)
         self.setupUi(self)
+
         initDB()
+        self.session = Session()
+
         self.header = ['Code', 'Designation', 'Famille',
                        'Auteur', 'Prix d\'achat', 'Prix de vente']
-        self.article_table_model = ArticleTableModel(header=self.header)
+
+        self.articles = self.session.query(Article).all()
+
+        self.article_table_model = ArticleTableModel(articles=self.articles, header=self.header)
         # self.model = QStandardItemModel()
         # self.model.setHorizontalHeaderLabels(['Name', 'Age', 'Sex', 'Add'])
         # self.article_table_model.setHorizontalHeaderLabels(self.header)
-        self.session = Session()
         self.tableView.setModel(self.article_table_model)
         self.tableView.resizeColumnsToContents()
         # self.tableView.setHorizontalHeader()
@@ -91,7 +95,7 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_add_selling_clicked(self):
-        selling_form_win = SellingFormView()
+        selling_form_win = SellingFormView(session=self.session, articles=self.articles)
         selling_form_win.exec_()
 
     @pyqtSlot()
@@ -101,9 +105,9 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
         query = search_art_win.get_query()
 
         if query:
-            articles = self.session.query(Article).all()
+            # articles = self.session.query(Article).all()
 
-            search_results = [obj.__dict__ for obj in articles if query in (
+            search_results = [obj.__dict__ for obj in self.articles if query in (
                 obj.designation or obj.author or obj.code or obj.editor or obj.family)]
             print(search_results)
             if not search_results:
@@ -115,13 +119,19 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_add_command_clicked(self):
-        add_command = CommandFormView()
+        add_command = CommandFormView(session=self.session, articles=self.articles)
         add_command.exec_()
 
     @pyqtSlot()
     def on_show_command_clicked(self):
-        show_command = CommandListView()
-        show_command.exec_()
+        indexes = self.tableView.selectedIndexes()
+        # print(dir(indexes))
+        for i in indexes:
+            print(i.row())
+            self.article_table_model.removeRow(i.row())
+
+        # show_command = CommandListView()
+        # show_command.exec_()
 
     @pyqtSlot()
     def on_show_command_article_clicked(self):
