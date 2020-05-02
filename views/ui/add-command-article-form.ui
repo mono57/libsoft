@@ -55,7 +55,11 @@
           </spacer>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBoxQteCommand"/>
+          <widget class="QSpinBox" name="spinBoxQteCommand">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
