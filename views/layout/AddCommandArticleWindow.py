@@ -33,6 +33,7 @@ class Ui_AddCommandArticleWidget(object):
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.spinBoxQteCommand = QtWidgets.QSpinBox(AddCommandArticleWidget)
+        self.spinBoxQteCommand.setMinimum(1)
         self.spinBoxQteCommand.setObjectName("spinBoxQteCommand")
         self.horizontalLayout.addWidget(self.spinBoxQteCommand)
         self.formLayout.setLayout(1, QtWidgets.QFormLayout.FieldRole, self.horizontalLayout)
