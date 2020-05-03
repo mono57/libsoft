@@ -124,14 +124,8 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_show_command_clicked(self):
-        indexes = self.tableView.selectedIndexes()
-        # print(dir(indexes))
-        for i in indexes:
-            print(i.row())
-            self.article_table_model.removeRow(i.row())
-
-        # show_command = CommandListView()
-        # show_command.exec_()
+        show_command = CommandListView()
+        show_command.exec_()
 
     @pyqtSlot()
     def on_show_command_article_clicked(self):
