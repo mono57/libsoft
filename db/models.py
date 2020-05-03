@@ -1,6 +1,6 @@
 
 from db.setup import Base
-from sqlalchemy import Column, String, Integer, Date, ForeignKey
+from sqlalchemy import Column, String, Integer, Date, ForeignKey, Boolean
 from sqlalchemy.orm import relationship, backref
 
 
@@ -16,7 +16,7 @@ class Article(Base):
     selling_price = Column('selling_price', String(20))
     quantity = Column('quantity', Integer)
     command_entry = relationship(
-        'CommandEntry', uselist=False, back_populates='article')
+        'CommandEntry', back_populates='article')
     # selling_entry = relationship(
     #     'SellingEntry', uselist=False, back_populates='parent')
 
@@ -33,10 +33,15 @@ class Command(Base):
     emission_date = Column('emission_date', Date)
     reception_date = Column('reception_date', Date)
     motif = Column('motif', String(250))
+    receptionned = Column('receptionned', Boolean, default=False)
     # receptionner = Column('receptionner', String(30))
     command_entries = relationship('CommandEntry')
     provider_id = Column(Integer, ForeignKey('provider.id'))
+    provider = relationship('Provider', back_populates='commands')
 
+    def __init__(self, *args, **kwargs):
+        super(Command, self).__init__(*args, **kwargs)
+        self.receptionned = False
 
 class CommandEntry(Base):
     __tablename__ = 'command_entry'
