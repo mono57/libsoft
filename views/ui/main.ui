@@ -36,6 +36,9 @@
              <property name="autoFillBackground">
               <bool>false</bool>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
              <property name="text">
               <string>Ajouter un article</string>
              </property>
@@ -43,7 +46,7 @@
               <bool>false</bool>
              </property>
              <property name="flat">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -52,11 +55,14 @@
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
              <property name="text">
               <string>Rechercher un article</string>
              </property>
              <property name="flat">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -64,6 +70,9 @@
             <widget class="QPushButton" name="add_history">
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
              </property>
              <property name="text">
               <string>Historique des ajouts</string>
@@ -73,7 +82,7 @@
                <normaloff>.</normaloff>.</iconset>
              </property>
              <property name="flat">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -91,25 +100,46 @@
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
              <property name="text">
               <string>Enregistrer une commande</string>
              </property>
              <property name="flat">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="show_command">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
              <property name="text">
               <string>Afficher les commandes</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="show_command_article">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
              <property name="text">
               <string>Afficher les articles commandé</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -118,11 +148,14 @@
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
              <property name="text">
               <string>Historique des receptions</string>
              </property>
              <property name="flat">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -140,11 +173,14 @@
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
              <property name="text">
               <string>Enregistrer une vente</string>
              </property>
              <property name="flat">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -153,11 +189,14 @@
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
              <property name="text">
               <string>Historique des ventes</string>
              </property>
              <property name="flat">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -166,24 +205,14 @@
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
              <property name="text">
               <string>Rapport des ventes</string>
              </property>
              <property name="flat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_9">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string>PushButton</string>
-             </property>
-             <property name="flat">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
             </widget>
            </item>
