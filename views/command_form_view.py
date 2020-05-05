@@ -61,7 +61,7 @@ class CommandFormView(QDialog, Ui_CommandFormWidget):
 
             designation = form_data.get('designation')
             cmd_qte = int(form_data.get('qte'))
-
+            print(designation, cmd_qte)
             article = [
                 obj for obj in self.articles if obj.designation == designation][0]
 
@@ -142,6 +142,8 @@ class CommandFormView(QDialog, Ui_CommandFormWidget):
 
             self.session.commit()
             self.cmd_entries = []
+            QMessageBox.information(self, 'Info', 'Votre commande a été enregistrée avec succès !')
+            self.close()
 
     @pyqtSlot()
     def on_pushButtonDeleteArticle_clicked(self):
