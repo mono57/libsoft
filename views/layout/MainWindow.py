@@ -147,7 +147,7 @@ class Ui_MainWindow(object):
         self.groupBox.setTitle(_translate("MainWindow", "Commandes"))
         self.add_command.setText(_translate("MainWindow", "Enregistrer une commande"))
         self.show_command.setText(_translate("MainWindow", "Afficher les commandes"))
-        self.show_command_article.setText(_translate("MainWindow", "Afficher les articles commandé"))
+        self.show_command_article.setText(_translate("MainWindow", "Afficher les articles commandés"))
         self.command_history.setText(_translate("MainWindow", "Historique des receptions"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Ventes"))
         self.add_selling.setText(_translate("MainWindow", "Enregistrer une vente"))

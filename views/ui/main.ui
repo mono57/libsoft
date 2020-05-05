@@ -136,7 +136,7 @@
               <string notr="true">color: rgb(52, 101, 164);</string>
              </property>
              <property name="text">
-              <string>Afficher les articles commandé</string>
+              <string>Afficher les articles commandés</string>
              </property>
              <property name="flat">
               <bool>true</bool>

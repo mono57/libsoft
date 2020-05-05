@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QAction, QDesktopWidget
 from PyQt5.QtCore import pyqtSlot, QAbstractTableModel, QVariant, Qt
-from PyQt5.QtGui import QStandardItemModel
+from PyQt5.QtGui import QStandardItemModel, QIcon
 from views.layout.MainWindow import Ui_MainWindow
 from views.add_article_view import ArticleFormWindow
 from views.selling_form_view import SellingFormView
@@ -8,6 +8,7 @@ from views.article_search_view import ArticleSearchView
 from views.article_command_list_view import ArticleCommandListView
 from views.command_form_view import CommandFormView
 from views.command_list_view import CommandListView
+from views.selling_history_view import SellingHistoryView
 from db.setup import initDB, Session
 from db.models import Article
 
@@ -20,7 +21,7 @@ class ArticleTableModel(QAbstractTableModel):
         self.header = header
         self.articles_obj = articles
         self.articles = self.get_articles()
-
+        print('articles: ',articles)
     def rowCount(self, *args):
         return len(self.articles)
 
@@ -56,7 +57,7 @@ class ArticleTableModel(QAbstractTableModel):
                 article_obj.selling_price,
             ]
             article_list.append(_article)
-
+        print("article list: ", article_list)
         return article_list
 
 
@@ -80,6 +81,12 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
         self.tableView.setModel(self.article_table_model)
         self.tableView.resizeColumnsToContents()
         # self.tableView.setHorizontalHeader()
+        self.toolBar.addAction(QAction(QIcon('img/interface.png'), 'Add', self))
+        # self.showFullScreen()
+        self.showMaximized()
+        screen = QDesktopWidget().screenGeometry()
+        width, height = screen.width(), screen.height()
+        # print(width, height)
 
     @pyqtSlot()
     def on_add_article_clicked(self):
@@ -89,6 +96,8 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
         if form_data_obj:
             self.article_table_model.add_articles(form_data_obj)
             self.emit_tableView_layout_change_event()
+            self.articles = self.session.query(Article).all()
+
 
     def emit_tableView_layout_change_event(self):
         self.tableView.model().layoutChanged.emit()
@@ -131,6 +140,11 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
     def on_show_command_article_clicked(self):
         show_command_article = ArticleCommandListView()
         show_command_article.exec_()
+
+    @pyqtSlot()
+    def on_selling_history_clicked(self):
+        selling_history = SellingHistoryView()
+        selling_history.exec_()
 
     def close(self):
         self.session.close()
