@@ -14,7 +14,7 @@ class ArticleCommandListView(QDialog, Ui_ArticleCommandListWidget):
         self.model.setHorizontalHeaderLabels(['Article', 'Quantité', 'Prix U.', 'Cout total'])
         self.tableView.setModel(self.model)
         self.cmd_articles = []
-
+        self.comboBoxFilter.currentTextChanged.connect(self.filterCurrentTextChanged)
         self.entries = self.session.query(CommandEntry).all()
         # print("Entries : ", self.entries)
         qtes = []
@@ -52,6 +52,10 @@ class ArticleCommandListView(QDialog, Ui_ArticleCommandListWidget):
 
     def compute_total_price(self, entries):
         pass
+
+    def filterCurrentTextChanged(self, text):
+        print(text)
+        
 
     def on_pushButtonQuit_clicked(self):
         self.close()

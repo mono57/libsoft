@@ -14,7 +14,7 @@ class SellingHistoryView(QDialog, Ui_SellingHistoryWidget):
 
         self.model = QStandardItemModel()
         self.model.setHorizontalHeaderLabels([
-            'ID Vente', 'Nb Articles', 'Cout Total', 'Status', 'Date Vente',
+            'ID Vente', 'Nb Articles', 'Cout Total','Client', 'Status', 'Date Vente',
         ])
         self.tableView.setModel(self.model)
 
@@ -64,6 +64,7 @@ class SellingHistoryView(QDialog, Ui_SellingHistoryWidget):
             item_id = QStandardItem(str(selling.id))
             item_articles = QStandardItem(str(len(entries)))
             item_cost = QStandardItem(str(price))
+            item_client = QStandardItem(selling.client)
             item_status = QStandardItem(
                 self.format_status(selling.archived))
             item_selling_date = QStandardItem(str(selling.selling_date))
@@ -72,8 +73,9 @@ class SellingHistoryView(QDialog, Ui_SellingHistoryWidget):
             self.model.setItem(index, 0, item_id)
             self.model.setItem(index, 1, item_articles)
             self.model.setItem(index, 2, item_cost)
-            self.model.setItem(index, 3, item_status)
-            self.model.setItem(index, 4, item_selling_date)
+            self.model.setItem(index, 3, item_client)
+            self.model.setItem(index, 4, item_status)
+            self.model.setItem(index, 5, item_selling_date)
 
     def compute_selling_price(self, entries):
         return sum([int(obj.article.selling_price) * obj.selling_qte for obj in entries])
@@ -117,10 +119,10 @@ class SellingHistoryView(QDialog, Ui_SellingHistoryWidget):
 
         item_status = QStandardItem(
             self.format_status(selling.archived))
-        self.model.setItem(row, 3, item_status)
+        self.model.setItem(row, 4, item_status)
 
         QMessageBox.information(
-            self, 'Info', 'Commande receptionnée avec succès !', QMessageBox.Yes)
+            self, 'Info', 'Vente archivée avec succès !', QMessageBox.Yes)
         
     @pyqtSlot()
     def on_pushButtonQuit_clicked(self):

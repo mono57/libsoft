@@ -9,8 +9,8 @@ class AddCommandArticleView(QDialog, Ui_AddCommandArticleWidget):
     def __init__(self,articles, parent=None):
         super(AddCommandArticleView, self).__init__(parent)
         self.setupUi(self)
-
-        self.articles = articles
+        self.session = Session()
+        self.articles = self.session.query(Article).all()
         self.article = {}
         for _article in self.articles:
             self.comboBoxArticle.addItem(_article.designation)
@@ -25,5 +25,9 @@ class AddCommandArticleView(QDialog, Ui_AddCommandArticleWidget):
 
         self.article['designation'] = self.comboBoxArticle.currentText()
         self.article['qte'] = qte
-
+    
         self.close()
+
+    def close(self):
+        self.session.close()
+        super().close()
