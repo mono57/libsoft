@@ -53,6 +53,23 @@ class Article(Base):
         self.created_at = today
         self.updated_at = today
 
+class Client(Base):
+    __tablename__ = 'client'
+    id = Column(Integer, primary_key=True)
+    full_name = Column('full_name', String(50))
+    created_at = Column('created_at', Date)
+    updated_at = Column('updated_at', Date)
+    # sellings = relationship('Selling')
+
+    # __mapper_args__ = {
+    #     'polymorphic_identity':'provider',
+    # }
+    def __init__(self, *args, **kwargs):
+        super(Client, self).__init__(*args, **kwargs)
+        today = datetime.date.today()
+        self.created_at = today
+        self.updated_at = today
+
 class Provider(Base):
     __tablename__ = 'provider'
     id = Column(Integer, primary_key=True)
@@ -127,6 +144,8 @@ class Selling(Base):
     selling_entries = relationship('SellingEntry')
     created_at = Column('created_at', Date)
     updated_at = Column('updated_at', Date)
+    # client_id = Column(Integer, ForeignKey('client.id'))
+    # client = relationship('Client', back_populates='sellings')
 
     # __mapper_args__ = {
     #     'polymorphic_identity':'selling',
