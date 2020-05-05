@@ -46,6 +46,9 @@ class Ui_CommandListWidget(object):
         self.horizontalLayout.addWidget(self.labelTotalCost)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
+        self.pushButtonReceptionned = QtWidgets.QPushButton(CommandListWidget)
+        self.pushButtonReceptionned.setObjectName("pushButtonReceptionned")
+        self.horizontalLayout.addWidget(self.pushButtonReceptionned)
         self.pushButtonQuit = QtWidgets.QPushButton(CommandListWidget)
         self.pushButtonQuit.setObjectName("pushButtonQuit")
         self.horizontalLayout.addWidget(self.pushButtonQuit)
@@ -65,5 +68,7 @@ class Ui_CommandListWidget(object):
         self.comboBoxFilter.setItemText(2, _translate("CommandListWidget", "Non réceptionnées"))
         self.label_3.setText(_translate("CommandListWidget", "Cout total des commandes :"))
         self.labelTotalCost.setText(_translate("CommandListWidget", "0,00 F CFA"))
+        self.pushButtonReceptionned.setToolTip(_translate("CommandListWidget", "Marque une commande comme étant receptionnée"))
+        self.pushButtonReceptionned.setText(_translate("CommandListWidget", "Marquer comme receptionnée"))
         self.pushButtonQuit.setText(_translate("CommandListWidget", "Quitter"))
 

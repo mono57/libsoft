@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>858</width>
+    <height>604</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Gestion de Stock</string>
+   <string>Centre Biblique</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -51,22 +51,6 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="search_article">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(52, 101, 164);</string>
-             </property>
-             <property name="text">
-              <string>Rechercher un article</string>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="add_history">
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
@@ -80,6 +64,22 @@
              <property name="icon">
               <iconset theme="history">
                <normaloff>.</normaloff>.</iconset>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonArticleStock">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
+             <property name="text">
+              <string>Gérer les articles en stock</string>
              </property>
              <property name="flat">
               <bool>true</bool>
@@ -224,7 +224,49 @@
      </layout>
     </item>
     <item>
-     <widget class="QTableView" name="tableView"/>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Recherchez un article :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEditSearch">
+          <property name="placeholderText">
+           <string>Entrez le mot clé</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButtonSearch">
+          <property name="text">
+           <string>Recherchez</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QTableView" name="tableView"/>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -233,7 +275,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>858</width>
      <height>22</height>
     </rect>
    </property>

@@ -59,10 +59,18 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QDateEdit" name="dateEditEmission"/>
+          <widget class="QDateEdit" name="dateEditEmission">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QDateEdit" name="dateEditReception"/>
+          <widget class="QDateEdit" name="dateEditReception">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

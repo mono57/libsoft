@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'main.ui'
+# Form implementation generated from reading ui file 'views/ui/main.ui'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #
@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(858, 604)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -33,12 +33,6 @@ class Ui_MainWindow(object):
         self.add_article.setFlat(True)
         self.add_article.setObjectName("add_article")
         self.verticalLayout_2.addWidget(self.add_article)
-        self.search_article = QtWidgets.QPushButton(self.groupBox_3)
-        self.search_article.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.search_article.setStyleSheet("color: rgb(52, 101, 164);")
-        self.search_article.setFlat(True)
-        self.search_article.setObjectName("search_article")
-        self.verticalLayout_2.addWidget(self.search_article)
         self.add_history = QtWidgets.QPushButton(self.groupBox_3)
         self.add_history.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.add_history.setStyleSheet("color: rgb(52, 101, 164);")
@@ -47,6 +41,12 @@ class Ui_MainWindow(object):
         self.add_history.setFlat(True)
         self.add_history.setObjectName("add_history")
         self.verticalLayout_2.addWidget(self.add_history)
+        self.pushButtonArticleStock = QtWidgets.QPushButton(self.groupBox_3)
+        self.pushButtonArticleStock.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButtonArticleStock.setStyleSheet("color: rgb(52, 101, 164);")
+        self.pushButtonArticleStock.setFlat(True)
+        self.pushButtonArticleStock.setObjectName("pushButtonArticleStock")
+        self.verticalLayout_2.addWidget(self.pushButtonArticleStock)
         self.verticalLayout.addWidget(self.groupBox_3)
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox.setObjectName("groupBox")
@@ -102,12 +102,29 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.groupBox_2)
         self.horizontalLayout.addLayout(self.verticalLayout)
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem)
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setObjectName("label")
+        self.horizontalLayout_3.addWidget(self.label)
+        self.lineEditSearch = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEditSearch.setObjectName("lineEditSearch")
+        self.horizontalLayout_3.addWidget(self.lineEditSearch)
+        self.pushButtonSearch = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButtonSearch.setObjectName("pushButtonSearch")
+        self.horizontalLayout_3.addWidget(self.pushButtonSearch)
+        self.verticalLayout_5.addLayout(self.horizontalLayout_3)
         self.tableView = QtWidgets.QTableView(self.centralwidget)
         self.tableView.setObjectName("tableView")
-        self.horizontalLayout_2.addWidget(self.tableView)
+        self.verticalLayout_5.addWidget(self.tableView)
+        self.horizontalLayout_2.addLayout(self.verticalLayout_5)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 858, 22))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -122,11 +139,11 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Gestion de Stock"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Centre Biblique"))
         self.groupBox_3.setTitle(_translate("MainWindow", "Articles"))
         self.add_article.setText(_translate("MainWindow", "Ajouter un article"))
-        self.search_article.setText(_translate("MainWindow", "Rechercher un article"))
         self.add_history.setText(_translate("MainWindow", "Historique des ajouts"))
+        self.pushButtonArticleStock.setText(_translate("MainWindow", "Gérer les articles en stock"))
         self.groupBox.setTitle(_translate("MainWindow", "Commandes"))
         self.add_command.setText(_translate("MainWindow", "Enregistrer une commande"))
         self.show_command.setText(_translate("MainWindow", "Afficher les commandes"))
@@ -136,5 +153,8 @@ class Ui_MainWindow(object):
         self.add_selling.setText(_translate("MainWindow", "Enregistrer une vente"))
         self.selling_history.setText(_translate("MainWindow", "Historique des ventes"))
         self.selling_rapport.setText(_translate("MainWindow", "Rapport des ventes"))
+        self.label.setText(_translate("MainWindow", "Recherchez un article :"))
+        self.lineEditSearch.setPlaceholderText(_translate("MainWindow", "Entrez le mot clé"))
+        self.pushButtonSearch.setText(_translate("MainWindow", "Recherchez"))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
 

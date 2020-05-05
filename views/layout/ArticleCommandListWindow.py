@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'article-command-list.ui'
+# Form implementation generated from reading ui file 'views/ui/article-command-list.ui'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #
@@ -16,9 +16,20 @@ class Ui_ArticleCommandListWidget(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.label = QtWidgets.QLabel(ArticleCommandListWidget)
         self.label.setObjectName("label")
-        self.verticalLayout.addWidget(self.label)
+        self.horizontalLayout_2.addWidget(self.label)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem)
+        self.comboBoxFilter = QtWidgets.QComboBox(ArticleCommandListWidget)
+        self.comboBoxFilter.setObjectName("comboBoxFilter")
+        self.comboBoxFilter.addItem("")
+        self.comboBoxFilter.addItem("")
+        self.comboBoxFilter.addItem("")
+        self.horizontalLayout_2.addWidget(self.comboBoxFilter)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.tableView = QtWidgets.QTableView(ArticleCommandListWidget)
         self.tableView.setObjectName("tableView")
         self.verticalLayout.addWidget(self.tableView)
@@ -30,8 +41,8 @@ class Ui_ArticleCommandListWidget(object):
         self.labelTotalArticle = QtWidgets.QLabel(ArticleCommandListWidget)
         self.labelTotalArticle.setObjectName("labelTotalArticle")
         self.horizontalLayout.addWidget(self.labelTotalArticle)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem1)
         self.pushButtonQuit = QtWidgets.QPushButton(ArticleCommandListWidget)
         self.pushButtonQuit.setObjectName("pushButtonQuit")
         self.horizontalLayout.addWidget(self.pushButtonQuit)
@@ -45,6 +56,9 @@ class Ui_ArticleCommandListWidget(object):
         _translate = QtCore.QCoreApplication.translate
         ArticleCommandListWidget.setWindowTitle(_translate("ArticleCommandListWidget", "Form"))
         self.label.setText(_translate("ArticleCommandListWidget", "Liste des articles commandés"))
+        self.comboBoxFilter.setItemText(0, _translate("ArticleCommandListWidget", "Tous le articles"))
+        self.comboBoxFilter.setItemText(1, _translate("ArticleCommandListWidget", "Réceptionnés"))
+        self.comboBoxFilter.setItemText(2, _translate("ArticleCommandListWidget", "Non réceptionnés"))
         self.label_3.setText(_translate("ArticleCommandListWidget", "Nombre d\'articles commandés :"))
         self.labelTotalArticle.setText(_translate("ArticleCommandListWidget", "0"))
         self.pushButtonQuit.setText(_translate("ArticleCommandListWidget", "Quitter"))

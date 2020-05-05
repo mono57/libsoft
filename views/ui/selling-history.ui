@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CommandListWidget</class>
- <widget class="QWidget" name="CommandListWidget">
+ <class>SellingHistoryWidget</class>
+ <widget class="QWidget" name="SellingHistoryWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>693</width>
-    <height>422</height>
+    <width>715</width>
+    <height>434</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Historique des ventes</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="label">
          <property name="text">
-          <string>Toutes les commandes</string>
+          <string>Historique de toutes les ventes :</string>
          </property>
         </widget>
        </item>
@@ -39,27 +39,20 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Filtrer par :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QComboBox" name="comboBoxFilter">
          <item>
           <property name="text">
-           <string>Toutes les commandes</string>
+           <string>Toutes les ventes</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Réceptionnées</string>
+           <string>Archivées</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Non réceptionnées</string>
+           <string>Non archivées</string>
           </property>
          </item>
         </widget>
@@ -70,21 +63,7 @@
       <widget class="QTableView" name="tableView"/>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Cout total des commandes :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="labelTotalCost">
-         <property name="text">
-          <string>0,00 F CFA</string>
-         </property>
-        </widget>
-       </item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
@@ -99,12 +78,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButtonReceptionned">
-         <property name="toolTip">
-          <string>Marque une commande comme étant receptionnée</string>
-         </property>
+        <widget class="QPushButton" name="pushButtonArchiveSelling">
          <property name="text">
-          <string>Marquer comme receptionnée</string>
+          <string>Archiver la vente</string>
          </property>
         </widget>
        </item>

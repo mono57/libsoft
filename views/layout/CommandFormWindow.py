@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'command-form.ui'
+# Form implementation generated from reading ui file 'views/ui/command-form.ui'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #
@@ -39,9 +39,11 @@ class Ui_CommandFormWidget(object):
         self.label_3.setObjectName("label_3")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_3)
         self.dateEditEmission = QtWidgets.QDateEdit(CommandFormWidget)
+        self.dateEditEmission.setCalendarPopup(True)
         self.dateEditEmission.setObjectName("dateEditEmission")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.dateEditEmission)
         self.dateEditReception = QtWidgets.QDateEdit(CommandFormWidget)
+        self.dateEditReception.setCalendarPopup(True)
         self.dateEditReception.setObjectName("dateEditReception")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.dateEditReception)
         self.horizontalLayout.addLayout(self.formLayout)
