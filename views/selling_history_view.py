@@ -14,14 +14,15 @@ class SellingHistoryView(QDialog, Ui_SellingHistoryWidget):
 
         self.model = QStandardItemModel()
         self.model.setHorizontalHeaderLabels([
-            'ID Vente', 'Nb Articles', 'Cout Total','Client', 'Status', 'Date Vente',
+            'ID Vente', 'Nb Articles', 'Cout Total', 'Client', 'Status', 'Date Vente',
         ])
         self.tableView.setModel(self.model)
 
         self.session = Session()
         # self.sellings = self.session.query(Selling).all()
 
-        self.comboBoxFilter.currentTextChanged.connect(self.comboBoxFilter_currentTextChanged)
+        self.comboBoxFilter.currentTextChanged.connect(
+            self.comboBoxFilter_currentTextChanged)
 
         self._filter_text = self.comboBoxFilter.currentText()
         self._filter = self.format_filter(self._filter_text)
@@ -105,15 +106,19 @@ class SellingHistoryView(QDialog, Ui_SellingHistoryWidget):
                 self, 'Info', 'Cette vente a déjà été archivée !', QMessageBox.Yes)
             return
 
+        box = QMessageBox.information(
+            self, 'Info', 'Vous êtes sur le point d\'archiver la vente.\nUn retour en stock sera fait. \nVoulez vous continuer',
+            QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        
+        if box == QMessageBox.No:
+            return
+
         selling.archived = True
+        for entry in selling.selling_entries:
+            article = entry.article
+            article.quantity += entry.selling_qte
+            self.session.add(article)
         self.session.add(selling)
-
-        # selling_entries = selling.selling_entries
-
-        # for entry in selling_entries:
-        #     article = entry.article
-        #     article.quantity += entry.cmd_qte
-        #     self.session.add(article)
 
         self.session.commit()
 
@@ -123,7 +128,7 @@ class SellingHistoryView(QDialog, Ui_SellingHistoryWidget):
 
         QMessageBox.information(
             self, 'Info', 'Vente archivée avec succès !', QMessageBox.Yes)
-        
+
     @pyqtSlot()
     def on_pushButtonQuit_clicked(self):
         self.close()

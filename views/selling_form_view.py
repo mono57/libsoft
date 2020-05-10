@@ -97,6 +97,30 @@ class SellingFormView(QDialog, Ui_SellingFormWidget):
                 self.pushButtonSelling.setEnabled(True)
                 self.pushButtonDeleteArticle.setEnabled(True)
 
+    @pyqtSlot()
+    def on_pushButtonDeleteArticle_clicked(self):
+        indexes = self.tableView.selectedIndexes()
+
+        if not indexes and self.selling_entries:
+            QMessageBox.information(
+                self, 'Info', "Veuillez selectionner au préalable un article !", QMessageBox.Yes)
+            return
+
+        if not indexes:
+            return
+
+        if len(indexes) >= 2:
+            QMessageBox.information(
+                self, 'Info', 'Impossible de faire une selection groupée !', QMessageBox.Yes)
+            return
+
+        for row in indexes:
+            index = row.row()
+            self.model.removeRow(index)
+            return_value = self.selling_entries.pop(index)
+            if return_value:
+                self.update_total_price()
+
     def closeEvent(self, event):
         if self.selling_entries:
             mBox = QMessageBox.information(

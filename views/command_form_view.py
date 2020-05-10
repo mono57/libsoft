@@ -169,6 +169,6 @@ class CommandFormView(QDialog, Ui_CommandFormWidget):
             if return_value:
                 self.update_total_price()
 
-    def close(self):
-        self.session.close()
-        super(CommandFormView, self).close()
+    # def close(self):
+    #     self.session.close()
+    #     super(CommandFormView, self).close()

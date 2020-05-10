@@ -5,6 +5,7 @@ from views.layout.CommandListWindow import Ui_CommandListWidget
 from db.setup import Session
 from db.models import Command
 
+import datetime
 
 class CommandListView(QDialog, Ui_CommandListWidget):
     def __init__(self, parent=None):
@@ -63,6 +64,7 @@ class CommandListView(QDialog, Ui_CommandListWidget):
             item_emission_date = QStandardItem(str(command.emission_date))
             item_reception_date = QStandardItem(str(command.reception_date))
             item_id = QStandardItem(str(command.id))
+            item_date_recep = QStandardItem(str(command.date_reception))
 
             self.model.setItem(index, 0, item_id)
             self.model.setItem(index, 1, item_articles)
@@ -71,6 +73,7 @@ class CommandListView(QDialog, Ui_CommandListWidget):
             self.model.setItem(index, 4, item_emission_date)
             self.model.setItem(index, 5, item_reception_date)
             self.model.setItem(index, 6, item_provider)
+            self.model.setItem(index, 7, item_date_recep)
 
         self.labelTotalCost.setText(str(sum(prices)) + ' F CFA')
 
@@ -107,6 +110,7 @@ class CommandListView(QDialog, Ui_CommandListWidget):
             return
 
         command.receptionned = True
+        command.date_reception = datetime.date.today()
         self.session.add(command)
 
         command_entries = command.command_entries
