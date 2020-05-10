@@ -94,6 +94,7 @@ class Command(Base):
     motif = Column('motif', String(250))
     receptionned = Column('receptionned', Boolean)
     archived = Column('archived', Boolean)
+    date_reception = Column('receptionned_date', Date)
     created_at = Column('created_at', Date)
     updated_at = Column('updated_at', Date)
     # receptionner = Column('receptionner', String(30))
