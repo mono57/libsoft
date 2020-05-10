@@ -29,6 +29,19 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
             <widget class="QPushButton" name="add_article">
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
@@ -51,26 +64,6 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="add_history">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(52, 101, 164);</string>
-             </property>
-             <property name="text">
-              <string>Historique des ajouts</string>
-             </property>
-             <property name="icon">
-              <iconset theme="history">
-               <normaloff>.</normaloff>.</iconset>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="pushButtonArticleStock">
              <property name="cursor">
               <cursorShape>PointingHandCursor</cursorShape>
@@ -86,6 +79,35 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonImport">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
+             <property name="text">
+              <string>Importer les articles</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </widget>
         </item>
@@ -95,6 +117,19 @@
            <string>Commandes</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
            <item>
             <widget class="QPushButton" name="add_command">
              <property name="cursor">
@@ -144,20 +179,17 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="command_history">
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(52, 101, 164);</string>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
              </property>
-             <property name="text">
-              <string>Historique des receptions</string>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-            </widget>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -216,6 +248,19 @@
              </property>
             </widget>
            </item>
+           <item>
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </widget>
         </item>
@@ -227,6 +272,12 @@
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="spacing">
+         <number>10</number>
+        </property>
+        <property name="bottomMargin">
+         <number>10</number>
+        </property>
         <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">

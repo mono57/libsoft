@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Liste des articles commandés</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -37,25 +37,6 @@
           </size>
          </property>
         </spacer>
-       </item>
-       <item>
-        <widget class="QComboBox" name="comboBoxFilter">
-         <item>
-          <property name="text">
-           <string>Tous le articles</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Réceptionnés</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Non réceptionnés</string>
-          </property>
-         </item>
-        </widget>
        </item>
       </layout>
      </item>

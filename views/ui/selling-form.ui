@@ -69,7 +69,12 @@
         <widget class="QComboBox" name="comboBoxSellingType">
          <item>
           <property name="text">
-           <string>Type 1</string>
+           <string>Détaillant</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Grossiste</string>
           </property>
          </item>
         </widget>

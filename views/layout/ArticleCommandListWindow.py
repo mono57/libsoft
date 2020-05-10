@@ -23,12 +23,6 @@ class Ui_ArticleCommandListWidget(object):
         self.horizontalLayout_2.addWidget(self.label)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
-        self.comboBoxFilter = QtWidgets.QComboBox(ArticleCommandListWidget)
-        self.comboBoxFilter.setObjectName("comboBoxFilter")
-        self.comboBoxFilter.addItem("")
-        self.comboBoxFilter.addItem("")
-        self.comboBoxFilter.addItem("")
-        self.horizontalLayout_2.addWidget(self.comboBoxFilter)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.tableView = QtWidgets.QTableView(ArticleCommandListWidget)
         self.tableView.setObjectName("tableView")
@@ -54,11 +48,8 @@ class Ui_ArticleCommandListWidget(object):
 
     def retranslateUi(self, ArticleCommandListWidget):
         _translate = QtCore.QCoreApplication.translate
-        ArticleCommandListWidget.setWindowTitle(_translate("ArticleCommandListWidget", "Form"))
+        ArticleCommandListWidget.setWindowTitle(_translate("ArticleCommandListWidget", "Liste des articles commandés"))
         self.label.setText(_translate("ArticleCommandListWidget", "Liste des articles commandés"))
-        self.comboBoxFilter.setItemText(0, _translate("ArticleCommandListWidget", "Tous le articles"))
-        self.comboBoxFilter.setItemText(1, _translate("ArticleCommandListWidget", "Réceptionnés"))
-        self.comboBoxFilter.setItemText(2, _translate("ArticleCommandListWidget", "Non réceptionnés"))
         self.label_3.setText(_translate("ArticleCommandListWidget", "Nombre d\'articles commandés :"))
         self.labelTotalArticle.setText(_translate("ArticleCommandListWidget", "0"))
         self.pushButtonQuit.setText(_translate("ArticleCommandListWidget", "Quitter"))
