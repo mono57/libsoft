@@ -1,0 +1,6 @@
+{
+    "app_name": "Centre Biblique",
+    "author": "betsaleel",
+    "main_module": "start_app.py",
+    "version": "1.0.0"
+}
