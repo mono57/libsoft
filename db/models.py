@@ -52,6 +52,7 @@ class Article(Base):
         self.archived = False
         self.created_at = today
         self.updated_at = today
+        self.quantity = 0
 
 class Client(Base):
     __tablename__ = 'client'
@@ -109,11 +110,12 @@ class Command(Base):
 
     def __init__(self, *args, **kwargs):
         super(Command, self).__init__(*args, **kwargs)
-        self.receptionned = False
+        self.receptionned = True
         self.archived = False
         today = datetime.date.today()
         self.created_at = today
         self.updated_at = today
+        self.date_reception = today
 
 class CommandEntry(Base):
     __tablename__ = 'command_entry'
@@ -138,7 +140,7 @@ class Selling(Base):
     __tablename__ = 'selling'
     id = Column(Integer, primary_key=True)
     selling_date = Column('selling_date', Date)
-    selling_type = Column('selling_type', String(30))
+    selling_discount = Column('selling_discount', String(30))
     total_selling = Column('total_selling', Integer)
     client = Column('client', String(50))
     archived = Column('archived', Boolean)
