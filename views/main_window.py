@@ -1,6 +1,11 @@
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QAction, QDesktopWidget
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QAction, QDesktopWidget, QFileDialog
 from PyQt5.QtCore import pyqtSlot, QAbstractTableModel, QVariant, Qt
 from PyQt5.QtGui import QStandardItemModel, QIcon
+
+
+import xlrd
+# from openpyxl import load_workbook
+from sqlalchemy import and_
 from views.layout.MainWindow import Ui_MainWindow
 from views.add_article_view import ArticleFormWindow
 from views.selling_form_view import SellingFormView
@@ -11,8 +16,9 @@ from views.command_list_view import CommandListView
 from views.selling_history_view import SellingHistoryView
 from views.selling_rapport_view import SellingRapportView
 from views.article_list_view import ArticleListView
+from views.gen_pdf_view import GenPDFView
 from db.setup import initDB, Session
-from db.models import Article
+from db.models import Article, Selling
 from views.table_model import ArticleTableModel
 
 
@@ -53,7 +59,7 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_add_article_clicked(self):
-        article_form_win = ArticleFormWindow()
+        article_form_win = ArticleFormWindow(session=self.session)
         article_form_win.exec_()
         form_data_obj = article_form_win.get_form_data()
         if form_data_obj:
@@ -63,6 +69,53 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
 
     def emit_tableView_layout_change_event(self):
         self.tableView.model().layoutChanged.emit()
+
+    @pyqtSlot()
+    def on_pushButtonImport_clicked(self):
+        file_name = QFileDialog.getOpenFileName(
+            self, 'Ouvrir le fichier', '', 'Text files (*.xlsx)')[0]
+
+        wb = xlrd.open_workbook(file_name)
+        # sheet = wb.active
+        # for row in sheet.iter_rows():
+        #     for cell in row:
+        #         print(cell.value, end=' ')
+        #     print()
+
+        # print(str(sheet.max_row))
+        # print(str(sheet.max_column))
+
+        sheet = wb.sheet_by_index(0)
+
+        # # print(sheet.cell_value(0, 0))
+        article_list = []
+        for i in range(2, sheet.nrows):
+            # for j in range(0, sheet.ncols):
+            article = Article(
+                code=sheet.cell_value(i, 0),
+                designation=sheet.cell_value(i, 1),
+                family=sheet.cell_value(i, 2),
+                author=sheet.cell_value(i, 3),
+                editor=sheet.cell_value(i, 4),
+                selling_price=sheet.cell_value(i, 5),
+            )
+            article_list.append({
+                'code':sheet.cell_value(i, 0),
+                'designation':sheet.cell_value(i, 1),
+                'familly':sheet.cell_value(i, 2),
+                'author': sheet.cell_value(i, 3),
+                'editor': sheet.cell_value(i, 4),
+                'selling_price': sheet.cell_value(i, 5)
+            })
+            self.session.add(article)
+
+        self.session.commit()
+
+        self.articles = self.session.query(Article).all()
+        self.article_table_model.add_articles(article_list)
+        self.emit_tableView_layout_change_event()
+
+
 
     @pyqtSlot()
     def on_pushButtonArticleStock_clicked(self):
@@ -121,8 +174,22 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
         sell_rapport_win.exec_()
         periods = sell_rapport_win.get_periods()
         if periods is not None:
-            print(periods)
 
+            sellings = self.session.query(Selling).filter(
+                and_(
+                    Selling.selling_date >= periods.get('start'),
+                    Selling.selling_date <= periods.get('end'))).all()
+
+            if sellings:
+                gen_pdf_win = GenPDFView(collection=sellings, periods=periods)
+                gen_pdf_win.exec_()
+                QMessageBox.information(
+                    self, 'Info', 'Votre fichier a été genéré avec succès', QMessageBox.Yes)
+                return
+
+            QMessageBox.information(
+                    self, 'Info', 'Aucune vente trouvée pour la génération du rapport', QMessageBox.Yes)
+            
     def close(self):
         self.session.close()
         super(MainWindowLib, self).close()

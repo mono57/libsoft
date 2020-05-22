@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QDialog, QMessageBox
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot, QDate
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from views.layout.CommandFormWindow import Ui_CommandFormWidget
 from views.add_command_article_view import AddCommandArticleView
@@ -8,7 +8,7 @@ from db.setup import Session, save
 
 
 class CommandFormView(QDialog, Ui_CommandFormWidget):
-    def __init__(self, articles, session, parent=None):
+    def __init__(self, articles, session, command=None, parent=None):
         super(CommandFormView, self).__init__(parent)
         self.setupUi(self)
         self.model = QStandardItemModel()
@@ -16,15 +16,39 @@ class CommandFormView(QDialog, Ui_CommandFormWidget):
         self.tableView.setModel(self.model)
         self.session = session
 
+        self.cmd_entries = []
+
+        self.command = command
+        if self.command is not None:
+            self.populate_table()
+
         self.providers = self.session.query(Provider).all()
         for provider in self.providers:
             self.comboBoxProvider.addItem(provider.full_name)
 
         self.articles = articles
-        self.cmd_entries = []
+        
+
+        self.dateEditReception.setDate(QDate.currentDate())
+
+    def populate_table(self):
+        entries = self.command.command_entries
+        for indexRow, entry in enumerate(entries):
+            self.model.setItem(indexRow, 0, QStandardItem(
+                entry.article.designation))
+            self.model.setItem(indexRow, 1,
+                               QStandardItem(str(entry.cmd_qte)))
+
+            article = entry.article
+            article.quantity -= entry.cmd_qte
+            self.session.add(article)
+
+            self.cmd_entries.append(entry)
+        # self.session.commit()
+
 
     def compute_price(self):
-        return sum([int(entry.article.selling_price)*int(entry.cmd_qte)
+        return sum([int(float(entry.article.selling_price))*int(entry.cmd_qte)
                     for entry in self.cmd_entries])
 
     def closeEvent(self, event):
@@ -35,6 +59,7 @@ class CommandFormView(QDialog, Ui_CommandFormWidget):
                 QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
 
             if mBox == QMessageBox.Yes:
+                
                 super(CommandFormView, self).closeEvent(event)
             else:
                 event.ignore()
@@ -128,21 +153,27 @@ class CommandFormView(QDialog, Ui_CommandFormWidget):
 
                 _provider_instance = Provider(full_name=provider_full_name)
 
-            command_instance = Command(
-                motif=self.lineEditMotif.text(),
-                emission_date=self.dateEditEmission.date().currentDate().toPyDate(),
-                reception_date=self.dateEditReception.date().currentDate().toPyDate(),
-                command_entries=self.cmd_entries
-            )
-            # print(_provider_instance)
-            _provider_instance.commands.append(command_instance)
+            if not self.command:
+                self.command = Command()
 
-            self.session.add(command_instance)
+            self.command.motif = self.lineEditMotif.text()
+            self.command.reception_date = self.dateEditReception.date().toPyDate()
+            self.command.command_entries = self.cmd_entries
+
+            _provider_instance.commands.append(self.command)
+
+            self.session.add(self.command)
             self.session.add(_provider_instance)
+
+            for entry in self.cmd_entries:
+                article = entry.article
+                article.quantity += entry.cmd_qte
+                self.session.add(article)
 
             self.session.commit()
             self.cmd_entries = []
-            QMessageBox.information(self, 'Info', 'Votre commande a été enregistrée avec succès !')
+            QMessageBox.information(
+                self, 'Info', 'Votre commande a été enregistrée avec succès !')
             self.close()
 
     @pyqtSlot()

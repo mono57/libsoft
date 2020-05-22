@@ -1,5 +1,5 @@
 from PyQt5.QtCore import pyqtSlot, QAbstractTableModel, QVariant, Qt
-
+import datetime
 
 class ArticleTableModel(QAbstractTableModel):
 
@@ -30,7 +30,21 @@ class ArticleTableModel(QAbstractTableModel):
         return self.header[section]
 
     def add_articles(self, article_list_obj):
-        article_list = [list(obj.values()) for obj in article_list_obj]
+        # article_list = [list(obj.values()) for obj in article_list_obj]
+        article_list = []
+        for article in article_list_obj:
+            empty = ''
+            article_list.append([
+                article.get('code', empty),
+                article.get('designation', empty),
+                article.get('familly', empty),
+                article.get('author', empty),
+                article.get('editor', empty),
+                article.get('buying_price', empty),
+                article.get('selling_price', empty),
+                article.get('buying_price', empty),
+                str(article.get('date_add', datetime.date.today())),
+            ])
         self.articles += article_list
 
     def set_articles(self, article_list_obj):

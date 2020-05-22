@@ -37,7 +37,7 @@ class ArticleCommandListView(QDialog, Ui_ArticleCommandListWidget):
             item_designation = QStandardItem(article.designation)
             item_qte = QStandardItem(str(qte))
             item_price = QStandardItem(selling_price)
-            item_total_price = QStandardItem(str(int(selling_price) * int(qte)))
+            item_total_price = QStandardItem(str(int(float(selling_price)) * int(qte)))
 
             self.model.setItem(i, 0,item_designation)
             self.model.setItem(i, 1,item_qte)

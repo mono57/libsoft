@@ -1,42 +1,48 @@
 from PyQt5.QtWidgets import QMainWindow, QWidget, QDialog
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot, Qt
 from PyQt5.QtGui import QIntValidator
 from views.layout.ArticleFormWindow import Ui_ArticleForm
 from db.models import Article
 from db.setup import save
+import datetime
 
 
 class ArticleFormWindow(QDialog, Ui_ArticleForm):
-    def __init__(self, parent=None):
+    def __init__(self, session, data=None, parent=None):
         super(ArticleFormWindow, self).__init__(parent)
 
+        self.session = session
         self.setupUi(self)
         self.inputs_data_list = []
         self.form = {
             'isValid': False,
-
         }
 
-        self.error_fields = {
-            'lineEditCode': self.labelErrorCode,
-            'lineEditDesignation': self.labelErrorDesignation,
-            'lineEditBuyPrice': self.labelErrorBuyingPrice,
-            'lineEditSellingPrice': self.labelErrorSellingPrice
-        }
-        
+        self.data = data
+
+        if self.data is not None:
+            self.spinBoxQteStock.setEnabled(True)
+            self.pushButtonSave.setEnabled(False)
+            self.populate_data_to_form()
+
         self.lineEditBuyPrice.setValidator(QIntValidator())
         self.lineEditSellingPrice.setValidator(QIntValidator())
         # self.lineEditCode.text()
-        
 
-        self.lineEditCode.textChanged.connect(
-            lambda: self.textChanged('lineEditCode'))
-        self.lineEditDesignation.textChanged.connect(
-            lambda: self.textChanged('lineEditDesignation'))
-        self.lineEditBuyPrice.textChanged.connect(
-            lambda: self.textChanged('lineEditBuyPrice'))
-        self.lineEditSellingPrice.textChanged.connect(
-            lambda: self.textChanged('lineEditSellingPrice'))
+    def populate_data_to_form(self):
+        self.lineEditCode.setText(self.data.code)
+        self.lineEditDesignation.setText(self.data.designation)
+        self.lineEditAuthor.setText(self.data.author)
+        self.lineEditBuyPrice.setText(self.data.buying_price)
+        self.lineEditSellingPrice.setText(self.data.selling_price)
+
+        self.comboBoxFamilly.setCurrentIndex(
+            self.comboBoxFamilly.findText(self.data.family, Qt.MatchFixedString))
+        
+        self.comboBoxEditor.setCurrentIndex(
+            self.comboBoxEditor.findText(self.data.editor, Qt.MatchFixedString))
+        
+        self.spinBoxQteStock.setValue(self.data.quantity)
 
     def textChanged(self, field):
         pass
@@ -54,6 +60,7 @@ class ArticleFormWindow(QDialog, Ui_ArticleForm):
         values['selling_price'] = self.lineEditSellingPrice.text()
         values['editor'] = self.comboBoxEditor.currentText()
         values['qte_stock'] = self.spinBoxQteStock.value()
+        values['date_add'] = datetime.date.today()
         return values
 
     def clear_inputs(self):
@@ -66,23 +73,41 @@ class ArticleFormWindow(QDialog, Ui_ArticleForm):
         # self.comboBoxEditor.clear()
         self.spinBoxQteStock.clear()
 
+    def values_changed(self, old_values, new_values):
+        pass
+
     def save(self):
         inputs_values = self.get_inputs_values()
-        instance = save(
-            Article(
-                code=inputs_values.get('code'),
-                designation=inputs_values.get('designation'),
-                family=inputs_values.get('familly'),
-                author=inputs_values.get('author'),
-                editor=inputs_values.get('editor'),
-                buying_price=inputs_values.get('buying_price'),
-                selling_price=inputs_values.get('selling_price'),
-                quantity=inputs_values.get('qte_stock'),
+
+        if self.data:
+            self.data.code = inputs_values.get('code')
+            self.data.designation = inputs_values.get('designation')
+            self.data.family = inputs_values.get('familly')
+            self.data.author = inputs_values.get('author')
+            self.data.editor = inputs_values.get('editor')
+            self.data.buying_price = inputs_values.get('buying_price')
+            self.data.selling_price = inputs_values.get('selling_price')
+            self.data.quantity = inputs_values.get('qte_stock')
+
+            self.session.add(self.data)
+            self.session.commit()
+            inputs_values['id'] = self.data.id
+        else:
+            instance = save(
+                Article(
+                    code=inputs_values.get('code'),
+                    designation=inputs_values.get('designation'),
+                    family=inputs_values.get('familly'),
+                    author=inputs_values.get('author'),
+                    editor=inputs_values.get('editor'),
+                    buying_price=inputs_values.get('buying_price'),
+                    selling_price=inputs_values.get('selling_price'),
+                    quantity=inputs_values.get('qte_stock'),
+                )
             )
-        )
-        if instance:
-            return inputs_values
-        return None
+        # if instance:
+        #     return inputs_values
+        return inputs_values
 
     @pyqtSlot()
     def on_lineEditCode_textChanged(self, *args):

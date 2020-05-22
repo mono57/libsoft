@@ -1,9 +1,11 @@
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog, QMessageBox
 from PyQt5.QtCore import pyqtSlot, QAbstractTableModel, QVariant, Qt
 
 from views.layout.ArticleListWindow import Ui_ArticleListWidget
+from views.add_article_view import ArticleFormWindow
 from db.models import Article
 from db.setup import Session
+from views.utils import get_index_table, get_data_by_model_pk
 
 
 class ArticleTableModel(QAbstractTableModel):
@@ -44,10 +46,11 @@ class ArticleTableModel(QAbstractTableModel):
         self.articles = self.get_articles()
 
     def get_articles(self):
-        
+
         article_list = []
         for article_obj in self.articles_obj:
             _article = [
+                article_obj.id,
                 article_obj.code,
                 article_obj.designation,
                 article_obj.family,
@@ -61,6 +64,7 @@ class ArticleTableModel(QAbstractTableModel):
             article_list.append(_article)
         return article_list
 
+
 class ArticleListView(QDialog, Ui_ArticleListWidget):
     def __init__(self, parent=None):
         super(ArticleListView, self).__init__(parent)
@@ -69,7 +73,7 @@ class ArticleListView(QDialog, Ui_ArticleListWidget):
         self.session = Session()
 
         self.articles = self.session.query(Article).all()
-        self.header = ['Code', 'Designation', 'Famille',
+        self.header = ['ID Article', 'Code', 'Designation', 'Famille',
                        'Auteur', 'Editeur', 'Prix d\'achat (F CFA)',
                        'Prix de vente (F CFA)', 'Date d\'ajout', 'Quantité en Stock']
 
@@ -77,6 +81,43 @@ class ArticleListView(QDialog, Ui_ArticleListWidget):
         self.tableView.setModel(self.model)
         self.tableView.resizeColumnsToContents()
 
+    def emit_tableView_layout_change_event(self):
+        self.tableView.model().layoutChanged.emit()
+
+    @pyqtSlot()
+    def on_pushButtonUpdate_clicked(self):
+        row, index = get_index_table(self, self.tableView)
+
+        if not index and not row:
+            return
+
+        article_id = index.data()
+        article = get_data_by_model_pk(self.articles, int(article_id))
+        # article = [ _article for _article in self.articles if _article.id == int(article_id) ][0]
+        article_form_win = ArticleFormWindow(
+            session=self.session, data=article)
+        article_form_win.exec_()
+        form_data = article_form_win.get_form_data()
+        if form_data:
+            # print(form_data)
+            article = [ obj for obj in self.articles if obj.id == form_data[0].get('id') ][0]
+            index = self.articles.index(article)
+            self.articles[index] = article
+
+            self.model.set_articles(self.articles)
+            self.emit_tableView_layout_change_event()
+            self.articles = self.session.query(Article).all()
+
     def close(self):
         self.session.close()
         super().close()
+
+    @pyqtSlot()
+    def on_pushButtonDelete_clicked(self):
+        mBox = QMessageBox.critical(self, 'Avertissement',
+                             'Vous êtes sur le point de supprimer un article, continuer ?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if mBox == QMessageBox.Yes:
+            print('Le Message Va être supprimer')
+    @pyqtSlot()
+    def on_pushButtonQuit_clicked(self):
+        self.close()

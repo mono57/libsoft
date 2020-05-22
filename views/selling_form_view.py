@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow, QWidget, QDialog, QMessageBox
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot, QDate
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 from views.layout.SellingFormWindow import Ui_SellingFormWidget
@@ -8,7 +8,7 @@ from db.models import SellingEntry, Selling, Article
 
 
 class SellingFormView(QDialog, Ui_SellingFormWidget):
-    def __init__(self, session, articles, parent=None):
+    def __init__(self, session, articles, selling=None, parent=None):
         super(SellingFormView, self).__init__(parent)
         self.setupUi(self)
 
@@ -17,9 +17,51 @@ class SellingFormView(QDialog, Ui_SellingFormWidget):
             ['Article', 'Quantité', 'Prix Unitaire', 'Prix Total'])
         self.tableView.setModel(self.model)
 
+        self.selling = selling
+
         self.session = session
+
         self.articles = self.session.query(Article).all()
+
         self.selling_entries = []
+
+        if self.selling is not None:
+            self.populate_selling_entries()
+
+        self.dateEditSellingDate.setDate(QDate.currentDate())
+        self.checkBoxRabai.stateChanged.connect(self.on_checkBoxRabai_stateChanged)
+        self.spinBoxRabai.valueChanged.connect(self.on_spinBoxRabai_valueChanged)
+
+    def on_spinBoxRabai_valueChanged(self):
+        self.update_total_price()
+
+    def on_checkBoxRabai_stateChanged(self, value):
+        if value:
+            self.spinBoxRabai.setEnabled(True)
+        else:
+            self.spinBoxRabai.setEnabled(False)
+        self.update_total_price()
+
+    def populate_selling_entries(self):
+        for indexRow, entry in enumerate(self.selling.selling_entries):
+            self.model.setItem(indexRow, 0, QStandardItem(
+                entry.article.designation))
+            self.model.setItem(indexRow, 1,
+                               QStandardItem(str(entry.selling_qte)))
+            selling_price = entry.article.selling_price
+            self.model.setItem(indexRow, 2,
+                               QStandardItem(selling_price))
+            self.model.setItem(indexRow, 3,
+                               QStandardItem(str(entry.selling_qte * int(float(selling_price)))))
+
+            article = entry.article
+            article.quantity += entry.selling_qte
+            self.session.add(article)
+
+            self.selling_entries.append(entry)
+
+        self.lineEditClient.setText(self.selling.client)
+        self.dateEditSellingDate.setDate(QDate(self.selling.selling_date))
 
     def entry_exist(self, designation):
         entry = [_entry for _entry in self.selling_entries
@@ -29,9 +71,14 @@ class SellingFormView(QDialog, Ui_SellingFormWidget):
         return False
 
     def update_total_price(self):
-        total_price = sum([entry.selling_qte*int(entry.article.selling_price)
+        total_price = sum([entry.selling_qte*int(float(entry.article.selling_price))
                            for entry in self.selling_entries])
-        self.labelTotalSelling.setText(str(total_price))
+        discount = 0
+
+        if self.checkBoxRabai.isChecked():
+            discount = self.spinBoxRabai.value()
+
+        self.labelTotalSelling.setText(str(total_price - (total_price * discount)//100))
 
     @pyqtSlot()
     def on_pushButtonAddArticle_clicked(self):
@@ -74,8 +121,8 @@ class SellingFormView(QDialog, Ui_SellingFormWidget):
                 indexRow = index
                 self.selling_entries[index] = entry
 
-            article.quantity -= entry.selling_qte
-            self.session.add(article)
+            # article.quantity -= entry.selling_qte
+            # self.session.add(article)
             self.session.add(entry)
 
             # # print("Command Entry Article : ",
@@ -89,7 +136,7 @@ class SellingFormView(QDialog, Ui_SellingFormWidget):
             self.model.setItem(indexRow, 2,
                                QStandardItem(selling_price))
             self.model.setItem(indexRow, 3,
-                               QStandardItem(str(entry.selling_qte * int(selling_price))))
+                               QStandardItem(str(entry.selling_qte * int(float(selling_price)))))
 
             self.update_total_price()
 
@@ -141,11 +188,16 @@ class SellingFormView(QDialog, Ui_SellingFormWidget):
             self.lineEditClient.setFocus()
             return
 
+        for entry in self.selling_entries:
+            article = entry.article
+            article.quantity -= entry.selling_qte
+            self.session.add(article)
+
         selling_instance = Selling(
             client=client_name,
-            selling_type=self.comboBoxSellingType.currentText(),
             selling_entries=self.selling_entries,
-            selling_date=self.dateEditSellingDate.date().currentDate().toPyDate()
+            selling_discount=self.spinBoxRabai.value(),
+            selling_date=self.dateEditSellingDate.date().toPyDate()
         )
 
         self.session.add(selling_instance)
