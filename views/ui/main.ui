@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>858</width>
-    <height>604</height>
+    <height>578</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -155,7 +155,7 @@
               <string notr="true">color: rgb(52, 101, 164);</string>
              </property>
              <property name="text">
-              <string>Afficher les commandes</string>
+              <string>Gérer les commandes</string>
              </property>
              <property name="flat">
               <bool>true</bool>
@@ -172,6 +172,19 @@
              </property>
              <property name="text">
               <string>Afficher les articles commandés</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonHistory">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
+             <property name="text">
+              <string>Rapport des receptions</string>
              </property>
              <property name="flat">
               <bool>true</bool>
@@ -225,7 +238,7 @@
               <string notr="true">color: rgb(52, 101, 164);</string>
              </property>
              <property name="text">
-              <string>Historique des ventes</string>
+              <string>Gérer les ventes</string>
              </property>
              <property name="flat">
               <bool>true</bool>

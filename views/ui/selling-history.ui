@@ -65,6 +65,27 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
+        <widget class="QPushButton" name="pushButtonUpdate">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(52, 101, 164);</string>
+         </property>
+         <property name="text">
+          <string>Modifier</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButtonDelete">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(239, 41, 41);
+color: rgb(238, 238, 236);</string>
+         </property>
+         <property name="text">
+          <string>Supprimer</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -76,13 +97,6 @@
           </size>
          </property>
         </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButtonArchiveSelling">
-         <property name="text">
-          <string>Archiver la vente</string>
-         </property>
-        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButtonQuit">

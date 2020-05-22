@@ -23,7 +23,7 @@ class Ui_AddCommandArticleWidget(object):
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label)
         self.comboBoxArticle = QtWidgets.QComboBox(AddCommandArticleWidget)
         self.comboBoxArticle.setEnabled(True)
-        self.comboBoxArticle.setEditable(False)
+        self.comboBoxArticle.setEditable(True)
         self.comboBoxArticle.setObjectName("comboBoxArticle")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.comboBoxArticle)
         self.label_2 = QtWidgets.QLabel(AddCommandArticleWidget)

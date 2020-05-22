@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'views/ui/command-form.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -18,6 +18,16 @@ class Ui_CommandFormWidget(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.label_2 = QtWidgets.QLabel(CommandFormWidget)
+        self.label_2.setObjectName("label_2")
+        self.verticalLayout_5.addWidget(self.label_2)
+        self.dateEditReception = QtWidgets.QDateEdit(CommandFormWidget)
+        self.dateEditReception.setCalendarPopup(True)
+        self.dateEditReception.setObjectName("dateEditReception")
+        self.verticalLayout_5.addWidget(self.dateEditReception)
+        self.horizontalLayout.addLayout(self.verticalLayout_5)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setSizeConstraint(QtWidgets.QLayout.SetNoConstraint)
         self.verticalLayout_3.setSpacing(0)
@@ -30,23 +40,6 @@ class Ui_CommandFormWidget(object):
         self.comboBoxProvider.setObjectName("comboBoxProvider")
         self.verticalLayout_3.addWidget(self.comboBoxProvider)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
-        self.formLayout = QtWidgets.QFormLayout()
-        self.formLayout.setObjectName("formLayout")
-        self.label_2 = QtWidgets.QLabel(CommandFormWidget)
-        self.label_2.setObjectName("label_2")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_2)
-        self.label_3 = QtWidgets.QLabel(CommandFormWidget)
-        self.label_3.setObjectName("label_3")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_3)
-        self.dateEditEmission = QtWidgets.QDateEdit(CommandFormWidget)
-        self.dateEditEmission.setCalendarPopup(True)
-        self.dateEditEmission.setObjectName("dateEditEmission")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.dateEditEmission)
-        self.dateEditReception = QtWidgets.QDateEdit(CommandFormWidget)
-        self.dateEditReception.setCalendarPopup(True)
-        self.dateEditReception.setObjectName("dateEditReception")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.dateEditReception)
-        self.horizontalLayout.addLayout(self.formLayout)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.verticalLayout_4 = QtWidgets.QVBoxLayout()
         self.verticalLayout_4.setObjectName("verticalLayout_4")
@@ -95,9 +88,8 @@ class Ui_CommandFormWidget(object):
     def retranslateUi(self, CommandFormWidget):
         _translate = QtCore.QCoreApplication.translate
         CommandFormWidget.setWindowTitle(_translate("CommandFormWidget", "Nouvelle commande"))
+        self.label_2.setText(_translate("CommandFormWidget", "Date de reception de la commande"))
         self.label.setText(_translate("CommandFormWidget", "Fournisseur de la commande"))
-        self.label_2.setText(_translate("CommandFormWidget", "Date émission :"))
-        self.label_3.setText(_translate("CommandFormWidget", "Date réception prévue :"))
         self.label_5.setText(_translate("CommandFormWidget", "Motif de la commande (optionel)"))
         self.pushButtonAddArticle.setText(_translate("CommandFormWidget", "Ajouter un article"))
         self.pushButtonDeleteArticle.setText(_translate("CommandFormWidget", "Supprimer"))

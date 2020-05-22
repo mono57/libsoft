@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'article-form.ui'
+# Form implementation generated from reading ui file 'views/ui/article-form.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -135,6 +135,7 @@ class Ui_ArticleForm(object):
         self.horizontalLayout_4.setSpacing(0)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.spinBoxQteStock = QtWidgets.QSpinBox(ArticleForm)
+        self.spinBoxQteStock.setEnabled(False)
         self.spinBoxQteStock.setObjectName("spinBoxQteStock")
         self.horizontalLayout_4.addWidget(self.spinBoxQteStock)
         self.labelErrorQuantity = QtWidgets.QLabel(ArticleForm)

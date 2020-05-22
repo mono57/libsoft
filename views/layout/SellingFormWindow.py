@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'views/ui/selling-form.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -34,11 +34,13 @@ class Ui_SellingFormWidget(object):
         self.horizontalLayout_4.addWidget(self.label_3)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem1)
-        self.comboBoxSellingType = QtWidgets.QComboBox(SellingFormWidget)
-        self.comboBoxSellingType.setObjectName("comboBoxSellingType")
-        self.comboBoxSellingType.addItem("")
-        self.comboBoxSellingType.addItem("")
-        self.horizontalLayout_4.addWidget(self.comboBoxSellingType)
+        self.checkBoxRabai = QtWidgets.QCheckBox(SellingFormWidget)
+        self.checkBoxRabai.setObjectName("checkBoxRabai")
+        self.horizontalLayout_4.addWidget(self.checkBoxRabai)
+        self.spinBoxRabai = QtWidgets.QSpinBox(SellingFormWidget)
+        self.spinBoxRabai.setEnabled(False)
+        self.spinBoxRabai.setObjectName("spinBoxRabai")
+        self.horizontalLayout_4.addWidget(self.spinBoxRabai)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -54,6 +56,7 @@ class Ui_SellingFormWidget(object):
         self.horizontalLayout_2.addWidget(self.dateEditSellingDate)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.tableView = QtWidgets.QTableView(SellingFormWidget)
+        self.tableView.setEnabled(True)
         self.tableView.setObjectName("tableView")
         self.verticalLayout.addWidget(self.tableView)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
@@ -99,8 +102,8 @@ class Ui_SellingFormWidget(object):
         SellingFormWidget.setWindowTitle(_translate("SellingFormWidget", "Vente d\'article"))
         self.label_2.setText(_translate("SellingFormWidget", "Nom complet du client :"))
         self.label_3.setText(_translate("SellingFormWidget", "Type de vente :"))
-        self.comboBoxSellingType.setItemText(0, _translate("SellingFormWidget", "Détaillant"))
-        self.comboBoxSellingType.setItemText(1, _translate("SellingFormWidget", "Grossiste"))
+        self.checkBoxRabai.setText(_translate("SellingFormWidget", "Vente avec rabai"))
+        self.spinBoxRabai.setSuffix(_translate("SellingFormWidget", "%"))
         self.label.setText(_translate("SellingFormWidget", "Date de vente :"))
         self.label_5.setText(_translate("SellingFormWidget", "Total des ventes :"))
         self.labelTotalSelling.setText(_translate("SellingFormWidget", "0"))

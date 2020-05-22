@@ -284,7 +284,11 @@ padding: 2px;</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QSpinBox" name="spinBoxQteStock"/>
+          <widget class="QSpinBox" name="spinBoxQteStock">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QLabel" name="labelErrorQuantity">
