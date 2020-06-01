@@ -15,7 +15,7 @@
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
 from PyQt5.QtWidgets import QMainWindow
 from views.main_window import MainWindowLib
-import win32com.client
+# import win32com.client
 
 import sys
 

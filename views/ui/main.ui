@@ -96,6 +96,19 @@
             </widget>
            </item>
            <item>
+            <widget class="QPushButton" name="pushButtonInventaire">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(52, 101, 164);</string>
+             </property>
+             <property name="text">
+              <string>Faire un inventaire</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="verticalSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
