@@ -18,7 +18,7 @@ from views.selling_rapport_view import SellingRapportView
 from views.article_list_view import ArticleListView
 from views.gen_pdf_view import GenPDFView
 from db.setup import initDB, Session
-from db.models import Article, Selling
+from db.models import Article, Selling, Command
 from views.table_model import ArticleTableModel
 
 
@@ -100,9 +100,9 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
                 selling_price=sheet.cell_value(i, 5),
             )
             article_list.append({
-                'code':sheet.cell_value(i, 0),
-                'designation':sheet.cell_value(i, 1),
-                'familly':sheet.cell_value(i, 2),
+                'code': sheet.cell_value(i, 0),
+                'designation': sheet.cell_value(i, 1),
+                'familly': sheet.cell_value(i, 2),
                 'author': sheet.cell_value(i, 3),
                 'editor': sheet.cell_value(i, 4),
                 'selling_price': sheet.cell_value(i, 5)
@@ -114,8 +114,6 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
         self.articles = self.session.query(Article).all()
         self.article_table_model.add_articles(article_list)
         self.emit_tableView_layout_change_event()
-
-
 
     @pyqtSlot()
     def on_pushButtonArticleStock_clicked(self):
@@ -169,16 +167,44 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
         selling_history.exec_()
 
     @pyqtSlot()
+    def on_pushButtonCmdRapport_clicked(self):
+        sell_rapport_win = SellingRapportView()
+        sell_rapport_win.exec_()
+        periods = sell_rapport_win.get_periods()
+        if periods is not None:
+            commands = self.session.query(Command).all()
+
+            if not periods.get('all_periods', False):
+                commands = self.session.query(Command).filter(
+                    and_(
+                        Command.date_reception >= periods.get('start'),
+                        Command.date_reception <= periods.get('end'))).all()
+
+            if commands:
+                header = ['Article', 'Quantité',
+                          'Fournisseur', 'Date de vente', ]
+                gen_pdf_win = GenPDFView(collection=commands, periods=periods, header=header)
+                gen_pdf_win.exec_()
+                QMessageBox.information(
+                    self, 'Info', 'Votre fichier a été genéré avec succès', QMessageBox.Yes)
+                return
+
+            QMessageBox.information(
+                self, 'Info', 'Aucune vente trouvée pour la génération du rapport', QMessageBox.Yes)
+
+    @pyqtSlot()
     def on_selling_rapport_clicked(self):
         sell_rapport_win = SellingRapportView()
         sell_rapport_win.exec_()
         periods = sell_rapport_win.get_periods()
         if periods is not None:
+            sellings = self.session.query(Selling).all()
 
-            sellings = self.session.query(Selling).filter(
-                and_(
-                    Selling.selling_date >= periods.get('start'),
-                    Selling.selling_date <= periods.get('end'))).all()
+            if not periods.get('all_periods', False):
+                sellings = self.session.query(Selling).filter(
+                    and_(
+                        Selling.selling_date >= periods.get('start'),
+                        Selling.selling_date <= periods.get('end'))).all()
 
             if sellings:
                 gen_pdf_win = GenPDFView(collection=sellings, periods=periods)
@@ -188,8 +214,8 @@ class MainWindowLib(QMainWindow, Ui_MainWindow):
                 return
 
             QMessageBox.information(
-                    self, 'Info', 'Aucune vente trouvée pour la génération du rapport', QMessageBox.Yes)
-            
+                self, 'Info', 'Aucune vente trouvée pour la génération du rapport', QMessageBox.Yes)
+
     def close(self):
         self.session.close()
         super(MainWindowLib, self).close()

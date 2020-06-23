@@ -6,6 +6,10 @@ from views.add_article_view import ArticleFormWindow
 from db.models import Article
 from db.setup import Session
 from views.utils import get_index_table, get_data_by_model_pk
+from views.inventaire_view import InventaireView
+from views.gen_pdf_view import GenPDFView
+
+import sys
 
 
 class ArticleTableModel(QAbstractTableModel):
@@ -85,6 +89,24 @@ class ArticleListView(QDialog, Ui_ArticleListWidget):
         self.tableView.model().layoutChanged.emit()
 
     @pyqtSlot()
+    def on_pushButtonSearch_clicked(self):
+        query = self.lineEditSearchQuery.text()
+
+        if not query:
+            self.lineEditSearchQuery.setFocus()
+            return
+
+        search_results = [obj for obj in self.articles if query.lower() in (
+            obj.designation + obj.author + obj.code + obj.editor + obj.family).lower()]
+
+        if not search_results:
+            QMessageBox.information(self, 'Recherche', 'Aucune donnée trouvée pour le mot clef: {}'.format(
+                query), QMessageBox.Yes)
+            return
+        self.model.set_articles(search_results)
+        self.emit_tableView_layout_change_event()
+
+    @pyqtSlot()
     def on_pushButtonUpdate_clicked(self):
         row, index = get_index_table(self, self.tableView)
 
@@ -100,7 +122,8 @@ class ArticleListView(QDialog, Ui_ArticleListWidget):
         form_data = article_form_win.get_form_data()
         if form_data:
             # print(form_data)
-            article = [ obj for obj in self.articles if obj.id == form_data[0].get('id') ][0]
+            article = [obj for obj in self.articles if obj.id ==
+                       form_data[0].get('id')][0]
             index = self.articles.index(article)
             self.articles[index] = article
 
@@ -115,9 +138,28 @@ class ArticleListView(QDialog, Ui_ArticleListWidget):
     @pyqtSlot()
     def on_pushButtonDelete_clicked(self):
         mBox = QMessageBox.critical(self, 'Avertissement',
-                             'Vous êtes sur le point de supprimer un article, continuer ?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+                                    'Vous êtes sur le point de supprimer un article, continuer ?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if mBox == QMessageBox.Yes:
             print('Le Message Va être supprimer')
+
     @pyqtSlot()
     def on_pushButtonQuit_clicked(self):
         self.close()
+
+    @pyqtSlot()
+    def on_pushButtonInventaire_clicked(self):
+        inventaire_win = InventaireView(self.articles)
+        inventaire_win.exec_()
+        data = inventaire_win.get_return_data()
+
+        if data:
+            if data.get('all_article', False):
+                collection = self.articles
+            else:
+                collection = [
+                    article for article in self.articles if article.designation == data.get('article')]
+                # print(collection[0].selling_entry)
+            gen = GenPDFView(collection, is_inventaire=True)
+            exit_code = gen.exec_()
+            QMessageBox.information(
+                self, 'Info', 'Votre fichier a été géneré avec succès !', QMessageBox.Yes)

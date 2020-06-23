@@ -14,12 +14,25 @@ class SellingRapportView(QDialog, Ui_SellingRapportWidget):
         self.dateEditStartPeriod.setDate(QDate.currentDate())
         self.dateEditEndPeriod.setDate(QDate.currentDate())
         # set date with today's date
+        self.checkBoxPeriod.stateChanged.connect(self.on_checkBox_stateChanged)
+
+    def on_checkBox_stateChanged(self, state):
+        if state:
+            self.dateEditStartPeriod.setEnabled(False)
+            self.dateEditEndPeriod.setEnabled(False)
+        else:
+            self.dateEditStartPeriod.setEnabled(True)
+            self.dateEditEndPeriod.setEnabled(True)
 
     def get_periods(self):
         return self.periods if self.periods else None
 
     @pyqtSlot()
     def on_pushButtonGenerate_clicked(self):
+        if self.checkBoxPeriod.isChecked():
+            self.periods['all_periods'] = True
+            self.close()
+            
         self.periods['start'] = self.dateEditStartPeriod.date().toPyDate()
         self.periods['end'] = self.dateEditEndPeriod.date().toPyDate()
 
