@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>858</width>
-    <height>578</height>
+    <height>580</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -89,19 +89,6 @@
              </property>
              <property name="text">
               <string>Importer les articles</string>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButtonInventaire">
-             <property name="styleSheet">
-              <string notr="true">color: rgb(52, 101, 164);</string>
-             </property>
-             <property name="text">
-              <string>Faire un inventaire</string>
              </property>
              <property name="flat">
               <bool>true</bool>
@@ -192,7 +179,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButtonHistory">
+            <widget class="QPushButton" name="pushButtonCmdRapport">
              <property name="styleSheet">
               <string notr="true">color: rgb(52, 101, 164);</string>
              </property>
