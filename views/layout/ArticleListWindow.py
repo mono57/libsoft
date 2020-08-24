@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'views/ui/article-list.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -42,11 +42,6 @@ class Ui_ArticleListWidget(object):
         self.pushButtonUpdate.setStyleSheet("background-color: rgb(114, 159, 207);")
         self.pushButtonUpdate.setObjectName("pushButtonUpdate")
         self.horizontalLayout.addWidget(self.pushButtonUpdate)
-        self.pushButtonDelete = QtWidgets.QPushButton(ArticleListWidget)
-        self.pushButtonDelete.setStyleSheet("background-color: rgb(239, 41, 41);\n"
-"color: rgb(238, 238, 236);")
-        self.pushButtonDelete.setObjectName("pushButtonDelete")
-        self.horizontalLayout.addWidget(self.pushButtonDelete)
         self.pushButtonInventaire = QtWidgets.QPushButton(ArticleListWidget)
         self.pushButtonInventaire.setStyleSheet("background-color: rgb(237, 212, 0);")
         self.pushButtonInventaire.setObjectName("pushButtonInventaire")
@@ -69,7 +64,6 @@ class Ui_ArticleListWidget(object):
         self.label_2.setText(_translate("ArticleListWidget", "Rechercher un article :"))
         self.pushButtonSearch.setText(_translate("ArticleListWidget", "Rechercher"))
         self.pushButtonUpdate.setText(_translate("ArticleListWidget", "Modifier"))
-        self.pushButtonDelete.setText(_translate("ArticleListWidget", "Supprimer"))
         self.pushButtonInventaire.setText(_translate("ArticleListWidget", "Effectuer un inventaire"))
         self.pushButtonQuit.setText(_translate("ArticleListWidget", "Quitter"))
 

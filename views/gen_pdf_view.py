@@ -211,7 +211,7 @@ class GenPDFView(QDialog, Ui_GenPdfWidget):
             total_selling.append(total_price - total_price * discount//100)
             value = (100/len(self.collection))*(index + 1)
 
-            self.progressBar.setValue(value)
+            # self.progressBar.setValue(value)
 
         total_cost = sum(total_selling)
 

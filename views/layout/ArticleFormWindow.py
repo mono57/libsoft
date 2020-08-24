@@ -32,6 +32,7 @@ class Ui_ArticleForm(object):
         self.lineEditCode.setStyleSheet("border: 1px solid black;\n"
 "border-radius: 3px;\n"
 "padding: 2px;")
+        self.lineEditCode.setInputMask("")
         self.lineEditCode.setObjectName("lineEditCode")
         self.verticalLayout_5.addWidget(self.lineEditCode)
         self.labelErrorCode = QtWidgets.QLabel(ArticleForm)
@@ -189,7 +190,6 @@ class Ui_ArticleForm(object):
         _translate = QtCore.QCoreApplication.translate
         ArticleForm.setWindowTitle(_translate("ArticleForm", "Ajout d\'un article"))
         self.label.setText(_translate("ArticleForm", "Code :"))
-        self.lineEditCode.setInputMask(_translate("ArticleForm", "AAA99AA"))
         self.lineEditCode.setPlaceholderText(_translate("ArticleForm", "AAA99AA"))
         self.label_3.setText(_translate("ArticleForm", "Designation :"))
         self.label_2.setText(_translate("ArticleForm", "Famille :"))

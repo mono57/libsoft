@@ -84,9 +84,16 @@ class ArticleListView(QDialog, Ui_ArticleListWidget):
         self.model = ArticleTableModel(self.header, self.articles)
         self.tableView.setModel(self.model)
         self.tableView.resizeColumnsToContents()
+        self.lineEditSearchQuery.textChanged.connect(self.handleTextChanged)
+
 
     def emit_tableView_layout_change_event(self):
         self.tableView.model().layoutChanged.emit()
+
+    def handleTextChanged(self, value):
+        if not value:
+            self.model.set_articles(self.articles)
+            self.emit_tableView_layout_change_event()
 
     @pyqtSlot()
     def on_pushButtonSearch_clicked(self):

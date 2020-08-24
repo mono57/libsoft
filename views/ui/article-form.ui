@@ -53,7 +53,7 @@ border-radius: 3px;
 padding: 2px;</string>
            </property>
            <property name="inputMask">
-            <string>AAA99AA</string>
+            <string/>
            </property>
            <property name="placeholderText">
             <string>AAA99AA</string>

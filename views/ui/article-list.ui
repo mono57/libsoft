@@ -73,17 +73,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButtonDelete">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(239, 41, 41);
-color: rgb(238, 238, 236);</string>
-         </property>
-         <property name="text">
-          <string>Supprimer</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="pushButtonInventaire">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(237, 212, 0);</string>
